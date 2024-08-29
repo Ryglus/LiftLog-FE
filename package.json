@@ -8,6 +8,11 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-vue": "^2.2.0",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@heroicons/vue": "^2.1.5",
     "@vueuse/core": "^11.0.3",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",

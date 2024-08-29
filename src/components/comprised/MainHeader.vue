@@ -1,30 +1,47 @@
 <template>
   <header>
-    <h1>LiftLog</h1>
+      <router-link to="/"><h1>LiftLog</h1></router-link>
     <nav>
-      <router-link to="/">Home</router-link>
+
       <router-link to="/workouts">Workout Log</router-link>
       <router-link to="/progress">Progress</router-link>
       <router-link to="/exercises">Exercises</router-link>
-      <BaseButton type="primary" @click="handleClick">Primary Button</BaseButton>
-      <BaseButton type="secondary" size="small">Secondary Button</BaseButton>
-      <BaseButton type="danger" size="large" :disabled="true">Danger Button</BaseButton>
+      <CIcon icon="cilArrowBottom" />
+      <BaseButton type="primary" @click="handleClick" v-if="isSmall">
+        <CIcon icon="cilArrowBottom" />
+      </BaseButton>
+      <BaseButton type="primary" @click="handleClick" v-else>
+        Account
+      </BaseButton>
+      <IconButton>
+        <CIcon icon="cilArrowBottom" />
+      </IconButton>
+
     </nav>
   </header>
 </template>
 
 <script setup>
 import BaseButton from "../shared/BaseButton.vue"; // Adjust the path if necessary
+import { useResponsive } from '@/composables/useResponsive';
+import IconButton from "@/components/shared/IconButton.vue";
+
+const { isSmall } = useResponsive();
 
 const handleClick = () => {
   console.log('Primary button clicked');
 };
+
 </script>
 
-<style scoped>
+<style>
 header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 5% 0 5%;
   padding: 1rem;
-  background-color: var(--background-700);
+  color: var(--text-200) !important;
+  background-color: var(--background-800) !important;
 }
 
 h1 {
@@ -40,7 +57,7 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: #007bff;
+
 }
 
 nav a.router-link-active {

@@ -1,8 +1,9 @@
 <template>
+
   <MainHeader />
 
   <router-view></router-view> <!-- This is where the view components will be rendered -->
-  <p>Dark theme: {{isDark}}</p>
+
   <BaseButton @click="toggleTheme">{{ isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode' }}</BaseButton>
 
   <footer>
