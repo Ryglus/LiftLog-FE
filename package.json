@@ -5,7 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "docker-compose-up": "docker compose -f ./docker-compose.yml -p shadowbound-be up -d",
+    "docker-compose-down": "docker compose -f ./docker-compose.yml -p shadowbound-be down",
+    "docker-compose-logs": "docker compose -f ./docker-compose.yml -p shadowbound-be logs",
+    "docker-compose-ps": "docker compose -f ./docker-compose.yml -p shadowbound-be ps"
   },
   "dependencies": {
     "@coreui/icons": "^3.0.1",
@@ -13,10 +17,12 @@
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@heroicons/vue": "^2.1.5",
+    "@mdi/js": "^7.4.47",
     "@vueuse/core": "^11.0.3",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
     "vue-router": "^4.4.3",
+    "vuetify": "^3.7.1",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

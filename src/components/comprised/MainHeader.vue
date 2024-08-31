@@ -1,70 +1,77 @@
 <template>
-  <header>
-      <router-link to="/"><h1>LiftLog</h1></router-link>
+  <header v-if="isSmall">
+    <!-- Use router-link to home page -->
+    <router-link to="/">
+      <!-- Replace the h1 with an image logo -->
+      <img src="@/assets/logo.png" alt="LiftLog Logo" class="logo" />
+    </router-link>
     <nav>
 
+      <BaseButton type="primary" @click="handleClick">
+        <v-icon icon="mdi-account" />
+      </BaseButton>
+      <HamburgerButton @toggle="handleMenuToggle" />
+    </nav>
+  </header>
+  <header v-else>
+    <!-- Use router-link to home page -->
+    <router-link to="/">
+      <!-- Replace the h1 with an image logo -->
+      <img src="@/assets/logo.png" alt="LiftLog Logo" class="logo" />
+    </router-link>
+    <nav>
       <router-link to="/workouts">Workout Log</router-link>
       <router-link to="/progress">Progress</router-link>
       <router-link to="/exercises">Exercises</router-link>
-      <CIcon icon="cilArrowBottom" />
-      <BaseButton type="primary" @click="handleClick" v-if="isSmall">
-        <CIcon icon="cilArrowBottom" />
-      </BaseButton>
-      <BaseButton type="primary" @click="handleClick" v-else>
+      <DarkModeButton />
+
+
+      <BaseButton type="primary" @click="handleClick">
         Account
       </BaseButton>
-      <IconButton>
-        <CIcon icon="cilArrowBottom" />
-      </IconButton>
-
     </nav>
   </header>
 </template>
 
 <script setup>
 import BaseButton from "../shared/BaseButton.vue"; // Adjust the path if necessary
-import { useResponsive } from '@/composables/useResponsive';
-import IconButton from "@/components/shared/IconButton.vue";
-
+import {useResponsive} from "@/composables/useResponsive";
+import DarkModeButton from "@/components/comprised/DarkModeButton.vue";
+import HamburgerButton from "@/components/shared/HamburgerButton.vue";
 const { isSmall } = useResponsive();
-
-const handleClick = () => {
-  console.log('Primary button clicked');
+const handleMenuToggle = () => {
+  // Logic to handle menu toggle, e.g., open/close sidebar
 };
+// Placeholder handleClick function
+function handleClick() {
+  console.log('Button clicked!');
+}
 
 </script>
 
-<style>
-header {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 5% 0 5%;
-  padding: 1rem;
-  color: var(--text-200) !important;
-  background-color: var(--background-800) !important;
+<style scoped>
+/* Add styles for the logo */
+.logo {
+  max-height: 60px; /* Adjust size as needed */
+  margin-right: 20px; /* Optional spacing */
 }
 
-h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
+/* Additional styles for nav and header */
 nav {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 20px; /* Space between navigation items */
 }
 
-nav a {
-  text-decoration: none;
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between logo and nav */
+  padding: 5px 20px 5px 5px;
 
-}
-
-nav a.router-link-active {
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
+  border-radius: 0 0 10px 10px;
+  color: var(--text-200) !important;
+  background-color: var(--background-800) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
 }
 </style>
