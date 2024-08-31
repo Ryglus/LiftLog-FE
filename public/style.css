@@ -1,5 +1,5 @@
 /* https://www.realtimecolors.com/?colors=e9f0f7-080e15-95b5da-302872-7955c3&fonts=Inter-Inter */
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 :root[data-theme="light"] {
     --text-50: #ecf2f8;
     --text-100: #dae6f1;
