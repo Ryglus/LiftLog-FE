@@ -7,6 +7,7 @@ import './styles/style.css';
 import NoPage from "./pages/NoPage";
 import HomeLayout from "./layout/HomeLayout";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeLayout/>}>
               <Route index element={<HomePage/>}/>
+                <Route path="/exercises" element={<HomePage/>}/>
+                <Route path="/progress" element={<HomePage/>}/>
+                <Route path="/workouts" element={<HomePage/>}/>
+                <Route path="/login" element={<LoginPage/>}/>
             </Route>
 
 

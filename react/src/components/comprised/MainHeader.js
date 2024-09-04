@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Equivalent to Vue's router-link
+import {Link, useNavigate} from "react-router-dom"; // Equivalent to Vue's router-link
 
 import DarkModeButton from "../comprised/DarkModeButton";
 
@@ -10,19 +10,17 @@ import './MainHeader.css';
 function MainHeader() {
     // Use your custom hook to check if the screen is small
     const { isSmall } = useResponsive();
-
+    const navigate = useNavigate();
     const handleClick = () => {
-        console.log("Button clicked!");
+        navigate("/login");
     };
 
     const handleMenuToggle = () => {
-        // Logic to handle menu toggle, e.g., open/close sidebar
-        console.log("Menu toggled!");
+        navigate("/login");
     };
 
     return (
         <header>
-            {/* Logo and navigation */}
             <Link to="/">
                 <img src={logo} alt="LiftLog Logo" className="logo" />
             </Link>
@@ -30,7 +28,8 @@ function MainHeader() {
             <nav>
                 {isSmall ? (
                     <>
-                        <Button type="primary" onClick={handleClick}>
+                        <Button type="primary" onClick={handleMenuToggle}>
+                            Account
                             <i className="mdi mdi-account" /> {/* Use a font icon class or another component for the icon */}
                         </Button>
                     </>
