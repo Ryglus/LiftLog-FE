@@ -4,7 +4,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run start-react\" \"npm run start-angular\" \"npm run start-vue\"",
-    "start-react": "cd react; $env:PORT=3001; npm start",
+    "start-react": "cd react && powershell -Command \"$env:PORT=3001; npm start\"",
     "start-angular": "cd angular && ng serve --port 3002",
     "start-vue": "cd vue && npm run serve -- --port 3003"
   }
