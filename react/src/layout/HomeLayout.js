@@ -1,17 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import MainHeader from "../components/comprised/MainHeader";
-import { useResponsive } from '../hooks/useResponsive'; // Import the hook
 import './HomeLayout.css';
+import {Container} from "react-bootstrap";
 
 const HomeLayout = () => {
-    const { isSmall } = useResponsive(); // Use the hook to get the screen size
 
     return (
-        <div className={isSmall ? '' : 'main-container'}>
-            <MainHeader />
+        <Container>
             <Outlet />
-        </div>
+        </Container>
     );
 };
 

@@ -1,39 +1,80 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
+import './HomePage.css'; // Assuming you have custom styles
 
+import logo from '../assets/logo.webp';
+import {FaFacebookF, FaInstagram, FaLinkedin, FaTwitter} from "react-icons/fa";
+import MainNavBar from "../components/comprised/MainNavBar";
+import AccountBar from "../components/comprised/AccountBar";
+import DarkModeButton from "../components/comprised/DarkModeButton";
 
 const HomePage = () => {
-    // Function to navigate to the signup page
-    const navigateToSignup = () => {
-        console.log('Navigating to Signup...');
-        // Add your navigation logic here
-    };
-
     return (
-        <main className="homepage">
-            <section className="welcome">
-                <h2>Welcome to LiftLog!</h2>
-                <p>Your personal gym assistant to track and improve your workouts.</p>
-                <button className="cta-button" onClick={navigateToSignup}>
-                    Get Started
-                </button>
-            </section>
-
-            <section className="features">
-                <div className="feature large-feature">
-                    <h3>Track Your Workouts</h3>
-                    <p>Log your exercises, sets, and reps to keep track of your progress.</p>
-                </div>
-                <div className="feature">
-                    <h3>Visualize Progress</h3>
-                    <p>View your workout progress with charts and stats to stay motivated.</p>
-                </div>
-                <div className="feature">
-                    <img src={process.env.PUBLIC_URL + '/assets/dumbell.png'} alt="LiftLog Logo" />
-                    <h3>Explore Exercises</h3>
-                    <p>Find exercises and create personalized workout plans tailored to your goals.</p>
-                </div>
-            </section>
-        </main>
+        <div style={{ minHeight: '100vh' }}>
+            <Row className="align-items-start">
+                <Col md={3} style={{
+                    minHeight: '80vh',
+                    backgroundColor: '#151515',
+                    position: 'relative',
+                    borderRadius: '30px',
+                    marginTop: '7%',
+                    padding: '30px',
+                    zIndex:'1',
+                }}>
+                    <div className="d-flex justify-content-center align-items-center">
+                        <img src={logo} className="img-fluid " style={{width: '70%'}} alt="Logo"/>
+                    </div>
+                    <div className="contact-info">
+                        <h3 style={{color: '#fff', marginBottom: '30px'}}>Get in Touch</h3>
+                        <p>Email: <strong>support@liftlog.com</strong></p>
+                        <p>Phone: <strong>+1 234 567 890</strong></p>
+                        <p>Address: <strong>123 LiftLog Lane, Fitness City, USA</strong></p>
+                    </div>
+                    <div className="social-media">
+                        <h5 style={{color: '#fff', marginBottom: '15px'}}>Follow Us</h5>
+                        <div style={{display: 'flex', gap: '20px'}}>
+                            <a href="https://facebook.com" className="social-icon"
+                               style={{fontSize: '24px', color: '#fff'}}>
+                                <FaFacebookF/>
+                            </a>
+                            <a href="https://twitter.com" className="social-icon"
+                               style={{fontSize: '24px', color: '#fff'}}>
+                                <FaTwitter/>
+                            </a>
+                            <a href="https://instagram.com" className="social-icon"
+                               style={{fontSize: '24px', color: '#fff'}}>
+                                <FaInstagram/>
+                            </a>
+                            <a href="https://linkedin.com" className="social-icon"
+                               style={{fontSize: '24px', color: '#fff'}}>
+                                <FaLinkedin/>
+                            </a>
+                            <DarkModeButton></DarkModeButton>
+                        </div>
+                    </div>
+                </Col>
+                <Col
+                    md={9}
+                    className="red-column" // Move the margin logic to CSS
+                    style={{
+                        minHeight: '100vh',
+                        backgroundColor: '#212121',
+                        borderRadius: '30px',
+                    }}
+                >
+                    <Row style={{
+                        zIndex:'1',
+                    }}>
+                        <Col>
+                            <MainNavBar/>
+                        </Col>
+                        <Col>
+                            <AccountBar/>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+        </div>
     );
 };
 

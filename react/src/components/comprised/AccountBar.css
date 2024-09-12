@@ -1,0 +1,45 @@
+.account-navbar {
+    background-color: #000; /* Dark background */
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+}
+
+.login-btn, .sign-up-btn {
+    border-radius: 50px;
+    margin-left: 10px;
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+}
+
+.login-btn:hover, .sign-up-btn:hover {
+    background-color: #00d8ff;
+    border-color: #00d8ff;
+}
+
+.account-icon {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.account-icon:hover {
+    color: #00d8ff;
+}
+
+.dropdown-menu {
+    background-color: #1c1c1c;
+    color: #fff;
+    border: none;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #fff;
+}
+
+.dropdown-item:hover {
+    background-color: #00d8ff;
+    color: #fff;
+}

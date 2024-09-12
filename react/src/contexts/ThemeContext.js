@@ -1,5 +1,8 @@
 import React, {createContext, useState, useContext, useEffect} from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/style.css';
+
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({children}) => {
