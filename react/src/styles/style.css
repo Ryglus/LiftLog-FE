@@ -138,3 +138,200 @@ body {
     font-style: normal;
     font-variation-settings: "slnt" 0;
 }
+
+/* Custom Bootstrap Overrides using Theme Variables */
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-500);
+    border-color: var(--primary-500);
+    color: var(--text-50);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-900);
+    border-color: var(--primary-600);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-500);
+    border-color: var(--secondary-500);
+    color: var(--text-50);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-600);
+    border-color: var(--secondary-600);
+}
+
+/* Form Controls */
+.form-control {
+    background-color: var(--background-900);
+    border-color: var(--background-300);
+    color: var(--text-50);
+}
+
+.form-control:focus {
+    background-color: var(--background-800);
+    border-color: var(--primary-500);
+    box-shadow: none;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--background-900);
+    color: var(--text-50);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: var(--text-500);
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: var(--primary-400);
+}
+
+/* Cards */
+.card {
+    background-color: var(--background-900);
+    border-color: var(--background-800);
+    color: var(--text-50);
+}
+
+.card-header {
+    background-color: var(--background-800);
+    border-color: var(--background-700);
+}
+
+.card-footer {
+    background-color: var(--background-800);
+    border-color: var(--background-700);
+}
+
+/* Tables */
+.table {
+    background-color: var(--background-900);
+    color: var(--text-50);
+}
+
+.table thead th {
+    background-color: var(--background-800);
+    color: var(--text-200);
+}
+
+.table tbody tr:hover {
+    background-color: var(--background-800);
+}
+
+/* Alerts */
+.alert-primary {
+    background-color: var(--primary-200);
+    border-color: var(--primary-300);
+    color: var(--primary-900);
+}
+
+.alert-secondary {
+    background-color: var(--secondary-200);
+    border-color: var(--secondary-300);
+    color: var(--secondary-900);
+}
+/* Typography Overrides */
+body, .btn, .navbar, .card, .form-control, .table {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+/* Adjusting Font Sizes */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+p, span, div, label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+/* Input and Text Area */
+input, textarea, select {
+    background-color: var(--background-900);
+    border: 1px solid var(--background-500);
+    color: var(--text-50);
+}
+
+input:focus, textarea:focus, select:focus {
+    background-color: var(--background-800);
+    border-color: var(--primary-500);
+    box-shadow: none;
+}
+
+/* Input Placeholder Text */
+::placeholder {
+    color: var(--text-200);
+}
+
+/* Checkboxes and Radio Buttons */
+.form-check-input {
+    background-color: var(--background-800);
+    border-color: var(--background-500);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-500);
+    border-color: var(--primary-500);
+}
+/* Modals */
+.modal-content {
+    background-color: var(--background-900);
+    border-color: var(--background-800);
+    color: var(--text-50);
+}
+
+.modal-header, .modal-footer {
+    background-color: var(--background-800);
+    border-color: var(--background-700);
+}
+
+.modal-title {
+    color: var(--text-50);
+}
+
+.modal-body {
+    color: var(--text-200);
+}
+/* Links */
+a {
+    color: var(--primary-500);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-400);
+}
+/* Outline Buttons - Primary */
+.btn-outline {
+    color: var(--primary-500); /* Primary text color */
+    border-color: var(--primary-500); /* Primary border color */
+    background-color: transparent; /* Transparent background */
+}
+
+.btn-outline:hover {
+    color: var(--text-50); /* Light text color for better contrast */
+    background-color: var(--primary-500); /* Filled background on hover */
+    border-color: var(--primary-500); /* Keep the same border */
+}
+
+/* Outline Buttons - Secondary */
+.btn-outline-secondary {
+    color: var(--secondary-500); /* Secondary text color */
+    border-color: var(--secondary-500); /* Secondary border color */
+    background-color: transparent; /* Transparent background */
+}
+
+.btn-outline-secondary:hover {
+    color: var(--text-50); /* Light text color for better contrast */
+    background-color: var(--secondary-500); /* Filled background on hover */
+    border-color: var(--secondary-500); /* Keep the same border */
+}
+.btn-outline-primary, .btn-outline-secondary {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for visibility */
+}

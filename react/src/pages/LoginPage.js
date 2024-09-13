@@ -15,6 +15,7 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             const {success, token, message} = await AuthService.login(email, password);
+            console.log(token)
             if (success) {
                 navigate("/");
             } else {

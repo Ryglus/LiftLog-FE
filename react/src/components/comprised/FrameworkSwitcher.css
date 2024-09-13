@@ -1,31 +1,22 @@
 .framework-switcher {
-    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
-.framework-card {
+.framework-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-    border: 1px solid #ddd;
 }
 
-.framework-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+.framework-icon:hover {
+    transform: scale(1.1);
 }
 
-.framework-card img {
-    width: 100px;
-    height: auto;
-    margin: 20px auto;
-}
-
-.framework-card.active {
-    border: 2px solid #00d8ff; /* Highlight the active one */
-    box-shadow: 0 0 10px #00d8ff;
-}
-
-.framework-card .card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
+.framework-icon.active {
+    border-radius: 25%;
+    background-color: var(--accent-500);
+    padding: 5px;
+    box-shadow: 0 0 15px 5px var(--accent-500); /* More pronounced glow */
 }

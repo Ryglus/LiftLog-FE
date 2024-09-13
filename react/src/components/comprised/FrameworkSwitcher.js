@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import vueLogo from '../../assets/frameworks/Vue-icon.svg';
+import angularLogo from '../../assets/frameworks/Angular-icon.svg';
+import reactLogo from '../../assets/frameworks/React-icon.svg';
 import './FrameworkSwitcher.css';
-import vueLogo from '../../assets/frameworks/Vue-icon.svg'; // Your Vue logo image
-import angularLogo from '../../assets/frameworks/Angular-icon.svg'; // Your Angular logo image
-import reactLogo from '../../assets/frameworks/React-icon.svg'; // Your React logo image
 
 const FrameworkSwitcher = () => {
-    // State to track the active port based on the current URL
     const [activeFramework, setActiveFramework] = useState('');
 
-    // Function to handle switching to a different port
     const handleSwitchFramework = (framework, port) => {
-        window.location.href = `http://localhost:${port}`;
+        window.location.assign(`http://localhost:${port}`);
     };
 
-    // UseEffect to detect the current active framework based on the URL
     useEffect(() => {
         const currentPort = window.location.port;
         switch (currentPort) {
-            case '3001': // React default port
+            case '3001':
                 setActiveFramework('react');
                 break;
-            case '3002': // Angular default port
+            case '3002':
                 setActiveFramework('angular');
                 break;
-            case '3003': // Vue default port
+            case '3003':
                 setActiveFramework('vue');
                 break;
             default:
@@ -33,36 +29,33 @@ const FrameworkSwitcher = () => {
     }, []);
 
     return (
-        <Container className="framework-switcher">
-            <Row className="justify-content-center">
-                <Col md={4}>
-                    <Card
-                        className={`framework-card ${activeFramework === 'vue' ? 'active' : ''}`}
-                        onClick={() => handleSwitchFramework('vue', 3003)}
-                    >
-                        <Card.Img variant="top" src={vueLogo} alt="Vue" />
-                    </Card>
-                </Col>
-                <Col md={4}>
-                    <Card
-                        className={`framework-card ${activeFramework === 'angular' ? 'active' : ''}`}
-                        onClick={() => handleSwitchFramework('angular', 3002)}
-                    >
-                        <Card.Img variant="top" src={angularLogo} alt="Angular" />
+        <div className="d-flex social-icons flex-wrap justify-content-center">
+            <img
+                onClick={() => handleSwitchFramework('vue', 3003)}
+                className={`framework-icon ${activeFramework === 'vue' ? 'active' : ''}`}
+                role="button"
+                aria-label="Switch to Vue framework"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleSwitchFramework('vue', 3003)}
+                 src={vueLogo} alt="Vue"/>
 
-                    </Card>
-                </Col>
-                <Col md={4}>
-                    <Card
-                        className={`framework-card ${activeFramework === 'react' ? 'active' : ''}`}
-                        onClick={() => handleSwitchFramework('react', 3001)}
-                    >
-                        <Card.Img variant="top" src={reactLogo} alt="React" />
+                <img onClick={() => handleSwitchFramework('angular', 3002)}
+                     className={`framework-icon ${activeFramework === 'angular' ? 'active' : ''}`}
+                     role="button"
+                     aria-label="Switch to Angular framework"
+                     tabIndex={0}
+                     onKeyDown={(e) => e.key === 'Enter' && handleSwitchFramework('angular', 3002)} src={angularLogo} alt="Angular"/>
 
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+            <img
+                onClick={() => handleSwitchFramework('react', 3001)}
+                className={`framework-icon ${activeFramework === 'react' ? 'active' : ''}`}
+                role="button"
+                aria-label="Switch to React framework"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleSwitchFramework('react', 3001)}
+                 src={reactLogo} alt="React"/>
+
+        </div>
     );
 };
 

@@ -1,0 +1,29 @@
+.feature-section {
+    padding: 50px 0;
+}
+
+.feature-card {
+    border-radius: 15px;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensures all cards are of equal height */
+}
+
+.feature-card:hover {
+    transform: scale(1.05);
+}
+
+.feature-icon {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.feature-card .card-body {
+    flex-grow: 1; /* Ensures the card body grows to fill the available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -1,45 +1,58 @@
+/* Add a gap between the buttons using flexbox gap property */
 .account-navbar {
-    background-color: #000; /* Dark background */
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
+    gap: 20px; /* This will create a gap between all children elements */
 }
 
-.login-btn, .sign-up-btn {
-    border-radius: 50px;
-    margin-left: 10px;
-    padding: 0.4rem 1rem;
-    font-size: 1rem;
+.login-btn {
+    margin-right: 10px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.sign-up-btn {
+    font-weight: 500;
+    transition: background-color 0.3s ease;
 }
 
 .login-btn:hover, .sign-up-btn:hover {
-    background-color: #00d8ff;
-    border-color: #00d8ff;
+    background-color: var(--primary-500);
+    color: #fff;
 }
+
+
 
 .account-icon {
     background-color: transparent;
     border: none;
-    color: #fff;
     font-size: 1.5rem;
     margin-left: 20px;
     cursor: pointer;
 }
 
-.account-icon:hover {
-    color: #00d8ff;
-}
-
-.dropdown-menu {
-    background-color: #1c1c1c;
-    color: #fff;
+.custom-dropdown-menu {
+    background-color: var(--background-800); /* Custom dark dropdown background */
+    color: var(--text-50); /* Custom text color */
     border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
 }
 
-.dropdown-menu .dropdown-item {
+.custom-dropdown-menu .dropdown-item {
+    color: var(--text-50); /* Consistent text color */
+    padding: 10px 20px;
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+    background-color: var(--primary-500); /* Highlight on hover */
     color: #fff;
 }
 
-.dropdown-item:hover {
-    background-color: #00d8ff;
+.login-btn, .sign-up-btn {
+    margin-right: 10px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover, .sign-up-btn:hover {
+    background-color: var(--primary-500);
     color: #fff;
 }

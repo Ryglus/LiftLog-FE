@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import './MainNavBar.css'; // For custom styling
 
 const MainNavBar = () => {

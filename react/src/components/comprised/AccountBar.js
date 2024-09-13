@@ -1,42 +1,40 @@
 import React from 'react';
-import { Navbar, Nav, Button, Container, Dropdown } from 'react-bootstrap';
-import { FaUserCircle } from 'react-icons/fa'; // Using react-icons for user icon
+import { Button, Dropdown } from 'react-bootstrap';
+import { FaUserCircle } from 'react-icons/fa';
 import './AccountBar.css';
 
 const AccountBar = () => {
+
+    const loggedIn = false; // Will be replaced by context in the future
+
     return (
-        <Navbar expand="lg" variant="dark" className="account-navbar">
-            <Container>
-                {/* Account Section on the Right */}
-                <Nav className="ml-auto">
-                    {/* Login Button */}
-                    <Button variant="outline-light" className="login-btn">
-                        Login
-                    </Button>
-
-                    {/* Sign Up Button */}
-                    <Button variant="outline-light" className="sign-up-btn ml-2">
-                        Sign Up
-                    </Button>
-
-                    {/* Account Settings Dropdown with Icons */}
+        <div className="account-navbar d-flex justify-content-end align-items-center">
+            {loggedIn ? (
+                <>
                     <Dropdown align="end">
                         <Dropdown.Toggle variant="outline-light" className="account-icon">
                             <FaUserCircle size={28} />
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#profile">
-                                <FaUserCircle className="mr-2" /> Profile
-                            </Dropdown.Item>
+                        <Dropdown.Menu className="custom-dropdown-menu">
+                            <Dropdown.Item href="#profile">Profile</Dropdown.Item>
                             <Dropdown.Item href="#settings">Settings</Dropdown.Item>
                             <Dropdown.Divider />
                             <Dropdown.Item href="#logout">Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                </Nav>
-            </Container>
-        </Navbar>
+                </>
+            ) : (
+                <>
+                    <Button variant="outline">
+                        Login
+                    </Button>
+                    <Button>
+                        Sign Up
+                    </Button>
+                </>
+            )}
+        </div>
     );
 };
 
