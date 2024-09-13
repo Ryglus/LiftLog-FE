@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import {Row, Col, Button} from 'react-bootstrap';
 import './HomePage.css'; // Assuming you have custom styles
 
 import logo from '../assets/logo.webp';
@@ -62,15 +62,16 @@ const HomePage = () => {
                         borderRadius: '30px',
                     }}
                 >
-                    <Row style={{
-                        zIndex:'1',
-                    }}>
-                        <Col>
+                    <Row style={{padding:`10px`}}>
+                        <Col md={"8"}>
                             <MainNavBar/>
                         </Col>
-                        <Col>
+                        <Col md={"4"}>
                             <AccountBar/>
                         </Col>
+                    </Row>
+                    <Row>
+                       <Button>asd</Button>
                     </Row>
                 </Col>
             </Row>
