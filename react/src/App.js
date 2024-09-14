@@ -7,24 +7,22 @@ import NoPage from "./pages/NoPage";
 import HomeLayout from "./layout/HomeLayout";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import {AccountProvider} from "./contexts/AccountContext";
 
 function App() {
   return (
       <ThemeProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomeLayout/>}>
-              <Route index element={<HomePage/>}/>
-                <Route path="/exercises" element={<HomePage/>}/>
-                <Route path="/progress" element={<HomePage/>}/>
-                <Route path="/workouts" element={<HomePage/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
-            </Route>
-
-
-            <Route path="*" element={<NoPage/>}/>
-          </Routes>
-        </BrowserRouter>
+          <AccountProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<HomeLayout/>}>
+                  <Route index element={<HomePage/>}/>
+                    <Route path="/login" element={<LoginPage/>}/>
+                </Route>
+                <Route path="*" element={<NoPage/>}/>
+              </Routes>
+            </BrowserRouter>
+          </AccountProvider>
       </ThemeProvider>
   );
 }

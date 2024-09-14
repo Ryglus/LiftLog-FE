@@ -8,6 +8,8 @@ import AccountBar from '../components/comprised/AccountBar';
 import ContactSection from "../components/comprised/ContactSection";
 import FeatureSection from "../components/comprised/FeatureSection";
 import HeroSection from "../components/comprised/HeroSection";
+import TestimonialsSection from "../components/comprised/TestimonialsSection";
+import CallToActionSection from "../components/comprised/CallToActionSection";
 
 const HomePage = () => {
     return (
@@ -29,10 +31,15 @@ const HomePage = () => {
                             <AccountBar />
                         </Col>
                     </Row>
-                    <HeroSection/>
+                    <div >
+                        <HeroSection/>
+                    </div>
+
                 </Col>
             </Row>
             <FeatureSection />
+            <TestimonialsSection/>
+            <CallToActionSection/>
         </div>
     );
 };

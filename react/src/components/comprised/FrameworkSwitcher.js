@@ -29,7 +29,7 @@ const FrameworkSwitcher = () => {
     }, []);
 
     return (
-        <div className="d-flex social-icons flex-wrap justify-content-center">
+        <div className="d-flex social-icons">
             <img
                 onClick={() => handleSwitchFramework('vue', 3003)}
                 className={`framework-icon ${activeFramework === 'vue' ? 'active' : ''}`}

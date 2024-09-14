@@ -1,7 +1,7 @@
 .contact-content {
     background-color: var(--background-900);
     position: relative;
-    border-radius: 30px;
+    border-radius: 20px;
     z-index: 1;
 }
 .contact-content > div > div > img {

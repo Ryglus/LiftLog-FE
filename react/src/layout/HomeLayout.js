@@ -6,7 +6,7 @@ import {Container} from "react-bootstrap";
 const HomeLayout = () => {
 
     return (
-        <Container xxl className={"custom-container"}>
+        <Container className={"custom-container"}>
             <Outlet />
         </Container>
     );
