@@ -125,6 +125,9 @@
 
 }
 
+:root {
+    --global-border-radius: 20px; /* Your default border radius */
+}
 
 body {
     font-family: "Inter", sans-serif;

@@ -8,6 +8,7 @@ import HomeLayout from "./layout/HomeLayout";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import {AccountProvider} from "./contexts/AccountContext";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/" element={<HomeLayout/>}>
                   <Route index element={<HomePage/>}/>
                     <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/profile" element={<ProfilePage/>}/>
                 </Route>
                 <Route path="*" element={<NoPage/>}/>
               </Routes>

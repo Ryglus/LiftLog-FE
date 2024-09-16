@@ -22,9 +22,9 @@ class AuthService {
     }
 
     // Login existing account
-    async login(username, password) {
+    async login(email, password) {
         try {
-            const response = await axios.post(`${BASE_URL}/login`, { username, password });
+            const response = await axios.post(`${BASE_URL}/login`, { email, password });
             const { access_token, refresh_token } = response.data;
             StorageService.setAccessToken(access_token);
             StorageService.setRefreshToken(refresh_token);

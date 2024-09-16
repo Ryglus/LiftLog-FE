@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 30px; /* Keep the rounded corners */
+    border-radius: var(--global-border-radius);
     overflow: hidden; /* Clip content to the border radius */
     color: var(--text-50);
     min-height: 500px; /* Set a consistent minimum height */

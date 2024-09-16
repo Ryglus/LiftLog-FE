@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import AuthService from '../services/AuthService';
 import UserService from '../services/UserService'; // Import UserService for fetching user info
 
@@ -16,8 +16,8 @@ export const AccountProvider = ({ children }) => {
         token: null,
     });
 
-    const login = async (username, password) => {
-        const result = await AuthService.login(username, password);
+    const login = async (email, password) => {
+        const result = await AuthService.login(email, password);
         if (result.success) {
             try {
                 AuthService.attachTokenToRequest();

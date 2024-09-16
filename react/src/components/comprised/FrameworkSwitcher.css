@@ -2,6 +2,11 @@
     display: flex;
     justify-content: center;
 }
+.social-icons {
+    gap: 20px;
+    flex-wrap: wrap; /* Allows the icons to wrap and stack when space is limited */
+    justify-content: center;
+}
 
 .framework-icon {
     width: 40px;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
-import mealTrackingIcon from '../../assets/icons/food.webp';  // Replace with generated image path
-import workoutTrackingIcon from '../../assets/icons/lift.webp';  // Replace with generated image path
-import supplementTrackingIcon from '../../assets/icons/pill.webp';  // Replace with generated image path
+import mealTrackingIcon from '../../../assets/icons/food.webp';  // Replace with generated image path
+import workoutTrackingIcon from '../../../assets/icons/lift.webp';  // Replace with generated image path
+import supplementTrackingIcon from '../../../assets/icons/pill.webp';  // Replace with generated image path
 import './FeatureSection.css';
 
 const FeatureSection = () => {

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Carousel, Button, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './HeroSection.css';
-import bgImage1 from '../../assets/banners/bg1.webp'; // First background image
-import bgImage2 from '../../assets/banners/bg2.webp'; // Second background image (carousel slide)
-import bgImage3 from '../../assets/banners/bg3.webp'; // Third background image (carousel slide)
+import bgImage1 from '../../../assets/banners/bg1.webp'; // First background image
+import bgImage2 from '../../../assets/banners/bg2.webp'; // Second background image (carousel slide)
+import bgImage3 from '../../../assets/banners/bg3.webp'; // Third background image (carousel slide)
 
 const HeroSection = () => {
+    const navigate = useNavigate(); // Initialize useNavigate hook
+
     return (
         <Carousel interval={500000} pause="hover" className="hero-carousel">
             <Carousel.Item>
@@ -16,7 +19,9 @@ const HeroSection = () => {
                             <p className="hero-subtitle">
                                 Track your meals, log your workouts, and monitor your fitness progress effortlessly.
                             </p>
-                            <Button size="lg" className="hero-btn">Get Started Today</Button>
+                            <Button size="lg" className="hero-btn" onClick={() => navigate('/login')}>
+                                Get Started Today
+                            </Button>
                         </Col>
                     </Row>
                 </div>
@@ -29,7 +34,9 @@ const HeroSection = () => {
                             <p className="hero-subtitle">
                                 Join LiftLog to stay on track and achieve the results you desire.
                             </p>
-                            <Button size="lg" className="hero-btn">Join Now</Button>
+                            <Button size="lg" className="hero-btn" onClick={() => navigate('/login')}>
+                                Join Now
+                            </Button>
                         </Col>
                     </Row>
                 </div>
@@ -42,12 +49,13 @@ const HeroSection = () => {
                             <p className="hero-subtitle">
                                 With LiftLog, every workout and meal is one step closer to your goal.
                             </p>
-                            <Button size="lg" className="hero-btn">Start Tracking</Button>
+                            <Button size="lg" className="hero-btn" onClick={() => navigate('/login')}>
+                                Start Tracking
+                            </Button>
                         </Col>
                     </Row>
                 </div>
             </Carousel.Item>
-
         </Carousel>
     );
 };

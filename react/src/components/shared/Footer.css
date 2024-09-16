@@ -1,0 +1,14 @@
+.footer-section {
+    height: 100%; /* Ensure the section takes full height of its parent */
+    justify-content: space-between; /* Space out elements, icons at the bottom */
+    padding: 15px;
+    background-color: var(--background-900);
+    border-radius: var(--global-border-radius);
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}

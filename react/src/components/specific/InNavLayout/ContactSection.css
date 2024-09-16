@@ -1,0 +1,88 @@
+/* Contact Section */
+.contact-section {
+    position: relative;
+    height: 100%; /* Ensure the section takes full height of its parent */
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: var(--global-border-radius);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+/* Overlay using ::before */
+.contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0); /* Initially transparent */
+    transition: background-color 0.3s ease;
+    z-index: 1; /* Below logo and text */
+    pointer-events: none; /* Allow clicks to pass through */
+    border-radius: inherit;
+}
+
+/* Darken background on hover */
+.contact-section:hover::before {
+    background-color: rgba(0, 0, 0, 0.3); /* Darken the background */
+}
+
+/* Darken logo and text on hover */
+.contact-section:hover .logo,
+.contact-section:hover .contact-title {
+    filter: brightness(0.3); /* Darken elements by reducing brightness */
+}
+
+/* Home icon styles */
+.home-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 3; /* Ensure it's on top of the text and logo */
+}
+
+/* Show home icon on hover */
+.contact-section:hover .home-icon {
+    opacity: 1;
+}
+
+/* Logo styles */
+.logo {
+    z-index: 2;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    transition: all 0.3s ease;
+}
+
+/* Text (LIFTLOG) styles */
+.contact-title {
+    margin: 0;
+    font-size: 2.7rem;
+    font-weight: 700;
+    z-index: 2;
+    position: relative;
+    color: var(--text-200);
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .contact-title {
+        font-size: 4rem;
+        transform: rotate(-90deg);
+    }
+}
+
+/* Ensure the AccountBar is not affected by hover or overlay */
+.account-bar-section {
+    z-index: 5; /* Ensure the AccountBar is above the overlay */
+    position: relative; /* Ensure it's not affected by the overlay */
+    filter: none; /* Prevent the darkening effect */
+}
