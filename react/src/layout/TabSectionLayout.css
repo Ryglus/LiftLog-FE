@@ -1,0 +1,60 @@
+/* Container for the whole section */
+.tab-section-layout {
+    padding-top: 15px;
+    margin: 0 20px 0 20px;
+    background-color: var(--background-800);
+    border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.nav-item button {
+    border-radius: 10px !important;
+}
+
+.nav-item button {
+    background-color: var(--background-900);
+    color: var(--text-50);
+    border: none;
+}
+
+/* Hover effect on tabs */
+.nav-item button:hover {
+    border-color: var(--text-50) !important;
+    color: var(--text-50) !important;
+}
+
+.nav-item button[aria-selected="true"] {
+    color: var(--text-50) !important;
+    border-color: var(--accent-700) !important;
+    background-color: var(--accent-700) !important;
+}
+.nav-item button[aria-selected="true"]:hover {
+    background-color: var(--accent-600) !important;
+    border-color: var(--accent-600) !important;
+}
+/* Custom styling for tabs */
+.custom-tabs {
+    background-color: var(--background-900);
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: none;
+}
+
+
+/* Custom tab content section */
+.custom-tab-content {
+    padding: 20px;
+    background-color: var(--background-900);
+    border-radius: var(--global-border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--text-200);
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}

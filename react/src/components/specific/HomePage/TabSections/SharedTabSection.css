@@ -1,0 +1,146 @@
+/* Unified Section Container */
+.tab-section {
+    margin: 0 auto;
+    border-radius: var(--global-border-radius);
+    color: var(--text-200);
+    padding: 20px;
+}
+
+/* Section Titles */
+.tab-section h2, .tab-section h3 {
+    color: var(--accent-500);
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.tab-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Paragraphs */
+.tab-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: var(--text-100);
+}
+
+/* Image Styling */
+.images-wrapper {
+    max-width: 100%;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.tab-img {
+    max-width: 100%;
+    border-radius: var(--global-border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.tab-img:hover {
+    transform: scale(1.05);
+}
+
+/* List Styling */
+.features-highlight ul, .tracking-analytics-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.features-highlight ul li, .tracking-analytics-section ul li {
+    background-color: var(--background-800);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--global-border-radius);
+    transition: transform 0.3s ease;
+}
+
+.features-highlight ul li:hover, .tracking-analytics-section ul li:hover {
+    transform: scale(1.02);
+    background-color: var(--background-700);
+}
+
+.features-highlight ul li strong, .tracking-analytics-section ul li strong {
+    color: var(--accent-400);
+}
+.community-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.community-section ul li {
+    background-color: var(--background-800);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--global-border-radius);
+    transition: transform 0.3s ease;
+}
+
+.community-section ul li:hover {
+    transform: scale(1.02);
+    background-color: var(--background-700);
+}
+
+.community-section ul li strong {
+    color: var(--accent-400);
+}
+/* Call-to-Action Button */
+.cta-button {
+    background-color: var(--accent-500);
+    color: var(--text-50);
+    padding: 15px 30px;
+    border: none;
+    border-radius: var(--global-border-radius);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: block;
+    margin: 30px auto;
+}
+
+.cta-button:hover {
+    background-color: var(--accent-400);
+    transform: translateY(-3px);
+}
+
+/* Section Spacing */
+.tab-section section {
+    margin-bottom: 40px;
+}
+
+/* Separator between sections */
+.section-separator {
+    border: none;
+    height: 1px;
+    background-color: var(--accent-500);
+    margin: 40px 0;
+    opacity: 0.7;
+}
+
+.section-separator:hover {
+    opacity: 1;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .tab-section {
+        padding: 15px;
+    }
+
+    .images-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab-section h2, .tab-section h3 {
+        font-size: 2rem;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+}

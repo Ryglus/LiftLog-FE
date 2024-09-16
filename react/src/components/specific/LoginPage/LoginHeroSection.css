@@ -1,0 +1,14 @@
+.hero-login-banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--global-border-radius);
+    overflow: hidden; /* Clip content to the border radius */
+    color: var(--text-50);
+    min-height: 500px; /* Set a consistent minimum height */
+}
