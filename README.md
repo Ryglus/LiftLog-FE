@@ -3,8 +3,8 @@
 </p>
 <h1 align="center">LIFTLOG</h1>
 
-## Assignment
-![LiftLog Banner](image.png)
+## Assignment ![LiftLog Banner](image.png)
+
 
 ## Assignment 
 
