@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Dropdown} from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 import { FaUserCircle, FaSignInAlt } from 'react-icons/fa'; // Import login icon
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from '../../../contexts/AccountContext';
@@ -13,6 +13,10 @@ const AccountBar = () => {
         navigate('/login');
     };
 
+    const handleRouteClick = (route) => {
+        navigate(route);
+    };
+
     return (
         <div className="account-bar">
             {account.user ? (
@@ -21,10 +25,12 @@ const AccountBar = () => {
                         <FaUserCircle size={28} />
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="custom-dropdown-menu">
-                        <Dropdown.Item href="#profile">
-                            Profile ({account.user?.name || "User"})
+                        <Dropdown.Item onClick={() => handleRouteClick('/profile')}>
+                            Profile ({account.user?.username || "Login pls"})
                         </Dropdown.Item>
-                        <Dropdown.Item href="#settings">Settings</Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleRouteClick('/profile/settings')}>
+                            Settings
+                        </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
                     </Dropdown.Menu>

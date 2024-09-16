@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './AvatarPop.css'
-import defaultAvatar from '../../assets/avatar.webp'
+import defaultAvatar from '../../../assets/avatar.webp'
 const AvatarPop = ({ scale = 1 }) => {
     // Muscle group colors state
+    /*
     const [muscleColors, setMuscleColors] = useState({
         chest: '#ccc',
         biceps: '#ccc',
@@ -22,7 +23,7 @@ const AvatarPop = ({ scale = 1 }) => {
             [group]: prevColors[group] === '#ccc' ? '#ff6347' : '#ccc', // Example toggle color
         }));
     };
-
+*/
     return (
         <div className="human-body-container">
             <div className="human-body-wrapper" style={{ transform: `scale(${scale})` }}>

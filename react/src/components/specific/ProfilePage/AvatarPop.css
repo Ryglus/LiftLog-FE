@@ -1,7 +1,6 @@
 .avatar-image {
     position: absolute;
     top: -26px;
-    left: 50%;
     transform: translateX(-50%);
     width: 100px;
     height: 100px;

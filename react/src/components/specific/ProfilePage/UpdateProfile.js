@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import StorageService from "../services/StorageService";
+import StorageService from "../../../services/StorageService";
 
 const UpdateProfile = () => {
     const [profileData, setProfileData] = useState({
