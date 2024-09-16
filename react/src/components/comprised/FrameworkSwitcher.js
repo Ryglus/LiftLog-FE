@@ -8,7 +8,8 @@ const FrameworkSwitcher = () => {
     const [activeFramework, setActiveFramework] = useState('');
 
     const handleSwitchFramework = (framework, port) => {
-        window.location.assign(`http://localhost:${port}`);
+        const currentPath = window.location.pathname; // Get the current path
+        window.location.assign(`http://localhost:${port}${currentPath}`); // Redirect to the same path in the new framework
     };
 
     useEffect(() => {
@@ -37,14 +38,20 @@ const FrameworkSwitcher = () => {
                 aria-label="Switch to Vue framework"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && handleSwitchFramework('vue', 3003)}
-                 src={vueLogo} alt="Vue"/>
+                src={vueLogo}
+                alt="Vue"
+            />
 
-                <img onClick={() => handleSwitchFramework('angular', 3002)}
-                     className={`framework-icon ${activeFramework === 'angular' ? 'active' : ''}`}
-                     role="button"
-                     aria-label="Switch to Angular framework"
-                     tabIndex={0}
-                     onKeyDown={(e) => e.key === 'Enter' && handleSwitchFramework('angular', 3002)} src={angularLogo} alt="Angular"/>
+            <img
+                onClick={() => handleSwitchFramework('angular', 3002)}
+                className={`framework-icon ${activeFramework === 'angular' ? 'active' : ''}`}
+                role="button"
+                aria-label="Switch to Angular framework"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleSwitchFramework('angular', 3002)}
+                src={angularLogo}
+                alt="Angular"
+            />
 
             <img
                 onClick={() => handleSwitchFramework('react', 3001)}
@@ -53,8 +60,9 @@ const FrameworkSwitcher = () => {
                 aria-label="Switch to React framework"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && handleSwitchFramework('react', 3001)}
-                 src={reactLogo} alt="React"/>
-
+                src={reactLogo}
+                alt="React"
+            />
         </div>
     );
 };
