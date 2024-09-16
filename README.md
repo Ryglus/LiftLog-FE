@@ -1,4 +1,8 @@
-# ![LiftLog Logo](react/public/favicon.ico) LIFTLOG
+<p align="center">
+  <img src="react/public/favicon.ico" alt="LiftLog Logo" width="100">
+</p>
+<h1 align="center">LIFTLOG</h1>
+
 ## Assignment
 ![LiftLog Banner](image.png)
 
