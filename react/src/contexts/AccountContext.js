@@ -1,20 +1,35 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import AuthService from '../services/AuthService';
-import UserService from '../services/UserService'; // Import UserService for fetching user info
+import UserService from '../services/UserService';
 
-// Create the context
 const AccountContext = createContext();
-
-// Custom hook to use AccountContext
 export const useAccount = () => useContext(AccountContext);
 
-// Provider component to wrap around components that need account state
 export const AccountProvider = ({ children }) => {
     const [account, setAccount] = useState({
         isLoggedIn: AuthService.isLoggedIn(),
         user: null,
-        token: null,
     });
+
+    // Auto-login if tokens are valid on app load
+    useEffect(() => {
+        const initializeAccount = async () => {
+            if (AuthService.isLoggedIn()) {
+                try {
+                    AuthService.attachTokenToRequest();
+                    const userInfo = await UserService.getCurrentUser();
+                    setAccount({
+                        isLoggedIn: true,
+                        user: userInfo,
+                    });
+                } catch (error) {
+                    console.error('Error auto-fetching user:', error);
+                    AuthService.logout();
+                }
+            }
+        };
+        initializeAccount();
+    }, []);
 
     const login = async (email, password) => {
         const result = await AuthService.login(email, password);
@@ -25,7 +40,6 @@ export const AccountProvider = ({ children }) => {
                 setAccount({
                     isLoggedIn: true,
                     user: userInfo,
-                    token: result.access_token,
                 });
             } catch (error) {
                 console.error('Error fetching user info after login:', error);
@@ -36,7 +50,7 @@ export const AccountProvider = ({ children }) => {
 
     const logout = () => {
         AuthService.logout();
-        setAccount({ isLoggedIn: false, user: null, token: null });
+        setAccount({ isLoggedIn: false, user: null });
     };
 
     return (

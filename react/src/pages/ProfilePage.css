@@ -12,13 +12,18 @@
 }
 
 .nameheader {
-    background-color: var(--accent-200);
+    background-color: var(--accent-700);
     padding: 20px 0 20px 60px;
     border-radius: var(--global-border-radius);
 }
 .avatar-image-header {
+    object-fit: cover;
     width: 100px;
     height: 100px;
     border-radius: 50%;
     border: 2px solid #2f3032;
+}
+
+.profile-bio {
+    background-color: #0e1825;
 }

@@ -12,23 +12,6 @@ const UpdateProfile = () => {
     const [profileImage, setProfileImage] = useState(null); // Handle profile image
     const [message, setMessage] = useState('');
 
-    // Fetch existing profile data when the component mounts
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                const response = await axios.get('http://localhost:8081/api/profile/me', {
-                    headers: {
-                        'Authorization': `Bearer ${StorageService.getAccessToken()}`
-                    }
-                });
-                //setProfileData(response.data);
-            } catch (error) {
-                console.error('Error fetching profile:', error);
-            }
-        };
-        fetchProfile();
-    }, []);
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setProfileData({
@@ -48,9 +31,6 @@ const UpdateProfile = () => {
             formData.append('username', profileData.username);
             formData.append('bio', profileData.bio);
             formData.append('location', profileData.location);
-            if (profileImage) {
-                formData.append('profile_image', profileImage); // Append the profile image file if exists
-            }
 
             const response = await axios.put('http://localhost:8081/api/profile', formData, {
                 headers: {
@@ -105,11 +85,6 @@ const UpdateProfile = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Label>Profile Image</Form.Label>
-                            <Form.Control type="file" onChange={handleFileChange} />
-                        </Form.Group>
-
                         <Button variant="primary" type="submit" className="w-100">
                             Update Profile
                         </Button>
@@ -117,7 +92,6 @@ const UpdateProfile = () => {
                     </Form>
                 </Col>
             </Row>
-            {StorageService.getAccessToken()}
         </Container>
     );
 };

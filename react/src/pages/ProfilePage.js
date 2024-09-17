@@ -4,13 +4,14 @@ import axios from 'axios';
 import InNavLayout from "../layout/InNavLayout";
 import ProfileSearch from "../components/specific/ProfilePage/ProfileSearch";
 import UpdateProfile from "../components/specific/ProfilePage/UpdateProfile";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import AvatarPop from "../components/specific/ProfilePage/AvatarPop";
 import './ProfilePage.css';
 import Footer from "../components/shared/Footer";
 import { useAccount } from "../contexts/AccountContext";
 import TabSectionLayout from "../layout/TabSectionLayout";
 import defaultAvatar from '../assets/avatar.webp';
+import AvatarImageThumbnail from "../components/specific/ProfilePage/AvatarImageThumbnail";
 
 const ProfilePage = () => {
     const { account } = useAccount();
@@ -18,6 +19,7 @@ const ProfilePage = () => {
     const navigate = useNavigate();
     const [profileData, setProfileData] = useState(null); // State for fetched profile data
     const [loading, setLoading] = useState(true); // Loading state for fetching profile
+    const isLocalUser = account.user?.username === id; // Check if the profile being viewed is the logged-in user's profile
 
     const sections = [
         { key: 'overview', title: 'Overview', content: <div>Exercise</div> },
@@ -28,8 +30,11 @@ const ProfilePage = () => {
     useEffect(() => {
         // If no id is provided in the URL, navigate to the logged-in user's profile
         if (!id) {
-            if (account.user?.username) navigate(`/profile/${account.user.username}`); // Redirect to the logged-in user's profile
-            else navigate(`/`);
+            if (account.user?.username) {
+                navigate(`/profile/${account.user.username}`); // Redirect to the logged-in user's profile
+            } else {
+                navigate(`/`); // Redirect to homepage if not logged in
+            }
         } else {
             // Fetch the profile for the provided `id`
             fetchProfile(id);
@@ -38,7 +43,7 @@ const ProfilePage = () => {
 
     const fetchProfile = async (query) => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/search`,{
+            const response = await axios.get(`http://localhost:8081/api/search`, {
                 params: { query }
             });
             setProfileData(response.data[0]);
@@ -58,22 +63,22 @@ const ProfilePage = () => {
             <InNavLayout style={{ marginTop: '10px' }}>
                 <div className="profile-banner">
                     <div>
-                        <div className="nameheader">
-                            <img
-                                className="avatar-image-header"
-                                src={`http://localhost:8081/${profileData?.profile_image || defaultAvatar}`}
-                                alt="Profile"
-                                width="50"
-                            />
+                        <div className="nameheader align-content-center">
+                            <AvatarImageThumbnail path={profileData?.profile_image} />
+
                             <h1>{profileData?.username}</h1>
+                            <p className="profile-bio">{profileData?.bio}</p>
 
                         </div>
-                        <ProfileSearch />
-                        <AvatarPop scale={0.5} />
+                        <ProfileSearch/>
+                        <AvatarPop scale={0.5}/>
                     </div>
                 </div>
             </InNavLayout>
-            <TabSectionLayout sections={sections} />
+
+            {/* Conditionally render TabSectionLayout if it's the logged-in user's profile */}
+            {isLocalUser && <TabSectionLayout sections={sections}/>}
+
             <Container>
                 <UpdateProfile profileData={profileData} />
             </Container>

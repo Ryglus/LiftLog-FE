@@ -18,7 +18,7 @@ const ContactSection = () => {
     const stopPropagation = (e) => {
         e.stopPropagation();
     };
-
+    //TODO: PHONESIZE EXTEND NAV LIKE TABSECTION LAYOUT, PCSIZE USE THE ICONS ON HOVER TO NAVIGATE
     return (
         <Row className="contact-section contact-section-overlay justify-content-center" onClick={handleSectionClick}>
             {/* Home Icon (hidden by default) */}
@@ -28,11 +28,11 @@ const ContactSection = () => {
                 <img src={logo} className="logo" alt="Logo" />
             </Col>
 
-            <Col xs={10} md={"auto"} className="d-flex flex-column align-items-center justify-content-center">
+            <Col xs={8} md={"auto"} className="d-flex flex-column align-items-center justify-content-center">
                 <h1 className="contact-title">LIFTLOG</h1>
             </Col>
 
-            <Col xs={1} md={"auto"} className="d-flex flex-column align-items-center justify-content-center justify-content-md-end">
+            <Col xs={2} md={"auto"} className="d-flex flex-column align-items-center justify-content-center justify-content-md-end">
                 {/* The AccountBar itself is wrapped with stopPropagation */}
                 <div className="account-bar-section" onClick={stopPropagation}>
                     <AccountBar />
