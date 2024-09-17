@@ -34,7 +34,7 @@
 /* Custom styling for tabs */
 .custom-tabs {
     background-color: var(--background-900);
-    padding: 10px;
+    padding: 10px 9px 10px 9px;
     border-radius: 15px;
     display: flex;
     justify-content: space-between;

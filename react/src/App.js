@@ -20,6 +20,7 @@ function App() {
         <Route path="/profile" element={<HomeLayout/>}>
           <Route index element={<ProfilePage/>}/>
           <Route path="/profile/settings" element={<ProfilePage/>}/>
+          <Route path="/profile/:id" element={<ProfilePage/>}/>
         </Route>
         <Route path="*" element={<NoPage/>}/>
       </Routes>
