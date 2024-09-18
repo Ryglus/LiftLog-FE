@@ -1,21 +1,19 @@
 .avatar-container {
     position: relative;
     display: inline-block;
-    width: 100px;
-    height: 100px;
+    aspect-ratio: 1 / 1;
 }
 
 .avatar-image-header {
     width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     transition: all 0.3s ease;
     object-fit: cover;
+    cursor: pointer;
 }
 
-.avatar-container:hover .avatar-image-header {
-    filter: brightness(50%);
-}
 
 /* Position the edit icon outside the border radius */
 .edit-icon-bdge {
@@ -35,23 +33,27 @@
 
 /* Make sure the icon doesn't get clipped */
 .edit-icon {
+    transition: all 0.3s ease;
     font-size: 1rem;
     padding-bottom:2px;
     padding-left:1px;
     color: white;
 }
 
-/* On hover, the edit icon should show */
-.avatar-container:hover .edit-icon-bdge {
-    background-color: #1e2b3a;
+.edit-icon-bdge {
+    background-color: #0e1825;
+    bottom: 2px;
+    right: -3px;
+    opacity: 1;
 }
-
-/* Always show edit icon on mobile */
-@media (max-width: 768px) {
-    .edit-icon-bdge {
-        background-color: #0e1825;
-        bottom: 2px;
-        right: -3px;
-        opacity: 1;
-    }
+.avatar-container:hover .edit-icon {
+    font-size: 3rem;
+}
+.avatar-container:hover .edit-icon-bdge {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
 }

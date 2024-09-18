@@ -4,13 +4,12 @@ import axios from 'axios';
 import InNavLayout from "../layout/InNavLayout";
 import ProfileSearch from "../components/specific/ProfilePage/ProfileSearch";
 import UpdateProfile from "../components/specific/ProfilePage/UpdateProfile";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import AvatarPop from "../components/specific/ProfilePage/AvatarPop";
 import './ProfilePage.css';
 import Footer from "../components/shared/Footer";
 import { useAccount } from "../contexts/AccountContext";
 import TabSectionLayout from "../layout/TabSectionLayout";
-import defaultAvatar from '../assets/avatar.webp';
 import AvatarImageThumbnail from "../components/specific/ProfilePage/AvatarImageThumbnail";
 
 const ProfilePage = () => {
@@ -64,7 +63,7 @@ const ProfilePage = () => {
                 <div className="profile-banner">
                     <div>
                         <div className="nameheader align-content-center">
-                            <AvatarImageThumbnail path={profileData?.profile_image} />
+                            <AvatarImageThumbnail path={profileData?.profile_image} canEdit={true} />
 
                             <h1>{profileData?.username}</h1>
                             <p className="profile-bio">{profileData?.bio}</p>

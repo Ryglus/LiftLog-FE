@@ -6,11 +6,11 @@ import StorageService from "../../../services/StorageService";
 import './AvatarImageThumbnail.css';
 import { useToast } from "../../../contexts/ToastContext"; // For hover styles
 
-const AvatarImageThumbnail = ({ path }) => {
+const AvatarImageThumbnail = ({ path, canEdit = false }) => {
     const [profileImage, setProfileImage] = useState(null);
     const { showToast } = useToast();
-
-    // TODO: MOVE TO SERVICE SO IT UPDATES DYNAMICALY
+    canEdit = path ? true : false && canEdit;
+    // Handle profile image change
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -36,25 +36,33 @@ const AvatarImageThumbnail = ({ path }) => {
 
     return (
         <div className="avatar-container">
-            <img
-                className="avatar-image-header"
-                src={`http://localhost:8081/${path || defaultAvatar}`}
-                alt="Profile"
-            />
+            {canEdit && (
+                <input
+                    type="file"
+                    id="file-input"
+                    accept="image/*"
+                    style={{display: 'none'}}
+                    onChange={handleFileChange}
+                />
+            )}
 
-            {/* Hidden file input for uploading new image */}
-            <input
-                type="file"
-                id="file-input"
-                accept="image/*"
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-            />
-
-            {/* Edit icon positioned outside the avatar */}
-            <label htmlFor="file-input" className="edit-icon-bdge">
-                <FaPen className="edit-icon" />
+            <label htmlFor="file-input" className="avatar-image-header-label">
+                <img
+                    className="avatar-image-header"
+                    src={path ? "http://localhost:8081/"+path : (defaultAvatar)}
+                    alt="Profile"
+                />
+                {canEdit && (
+                    <>
+                        {/* Badge for mobile view */}
+                        <label htmlFor="file-input" className="edit-icon-bdge">
+                            <FaPen className="edit-icon edit-icon-phone" />
+                        </label>
+                    </>
+                )}
             </label>
+
+
         </div>
     );
 };
