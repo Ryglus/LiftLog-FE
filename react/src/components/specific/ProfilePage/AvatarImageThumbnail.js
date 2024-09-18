@@ -9,7 +9,6 @@ import { useToast } from "../../../contexts/ToastContext"; // For hover styles
 const AvatarImageThumbnail = ({ path, canEdit = false }) => {
     const [profileImage, setProfileImage] = useState(null);
     const { showToast } = useToast();
-    canEdit = path ? true : false && canEdit;
     // Handle profile image change
     const handleFileChange = async (e) => {
         const file = e.target.files[0];

@@ -63,7 +63,7 @@ const ProfilePage = () => {
                 <div className="profile-banner">
                     <div>
                         <div className="nameheader align-content-center">
-                            <AvatarImageThumbnail path={profileData?.profile_image} canEdit={true} />
+                            <AvatarImageThumbnail path={profileData?.profile_image} canEdit={isLocalUser} />
 
                             <h1>{profileData?.username}</h1>
                             <p className="profile-bio">{profileData?.bio}</p>
