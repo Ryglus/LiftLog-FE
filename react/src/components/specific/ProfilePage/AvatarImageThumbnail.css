@@ -18,12 +18,12 @@
 /* Position the edit icon outside the border radius */
 .edit-icon-bdge {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 20px;
+    right: 20px;
     background-color: #0e1825;
     border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    width: 15%;
+    height: 15%;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -4,7 +4,7 @@ import axios from 'axios';
 import InNavLayout from "../layout/InNavLayout";
 import ProfileSearch from "../components/specific/ProfilePage/ProfileSearch";
 import UpdateProfile from "../components/specific/ProfilePage/UpdateProfile";
-import { Container } from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import AvatarPop from "../components/specific/ProfilePage/AvatarPop";
 import './ProfilePage.css';
 import Footer from "../components/shared/Footer";
@@ -63,13 +63,24 @@ const ProfilePage = () => {
                 <div className="profile-banner">
                     <div>
                         <div className="nameheader align-content-center">
-                            <AvatarImageThumbnail path={profileData?.profile_image} canEdit={isLocalUser} />
+                            <Row>
+                                <Col md={3}>
+                                    <AvatarImageThumbnail path={profileData?.profile_image} canEdit={isLocalUser} />
 
-                            <h1>{profileData?.username}</h1>
-                            <p className="profile-bio">{profileData?.bio}</p>
+                                </Col>
+                                <Col md={3}>
+                                    <h1>{profileData?.username}</h1>
+                                    <p className="profile-bio">{profileData?.bio}</p>
+                                </Col>
+                                <Col>
+                                    <ProfileSearch/>
+                                </Col>
+                            </Row>
+
+
 
                         </div>
-                        <ProfileSearch/>
+
                         <AvatarPop scale={0.5}/>
                     </div>
                 </div>
