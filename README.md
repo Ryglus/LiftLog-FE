@@ -3,9 +3,7 @@
     <img src="react/public/favicon.ico" alt="LiftLog Logo" width="100">
     <h1 style="display: inline; text-align: center;">LIFTLOG</h1>
   </div>
-  <a href="https://wakatime.com/badge/user/1a03ed57-bdb9-4f34-a403-28c0409f4687/project/e3e80cb5-a4f4-4104-9b54-8432446dc120" style="position: absolute; right: 0; top: 0;">
-    <img src="https://wakatime.com/badge/user/1a03ed57-bdb9-4f34-a403-28c0409f4687/project/e3e80cb5-a4f4-4104-9b54-8432446dc120.svg" alt="wakatime">
-  </a>
+  <img src="https://wakatime.com/badge/user/1a03ed57-bdb9-4f34-a403-28c0409f4687/project/e3e80cb5-a4f4-4104-9b54-8432446dc120.svg?style=for-the-badge" alt="TOTAL TIME">
 </div>
 
 
