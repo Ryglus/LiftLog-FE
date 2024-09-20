@@ -3,27 +3,30 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 10px 10px;
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: var(--global-border-radius);
     overflow: hidden; /* Clip content to the border radius */
     color: var(--text-50);
-    background-color: var(--background-800);
     min-height: 500px; /* Set a consistent minimum height */
 }
 
 .nameheader {
     background-color: var(--accent-700);
-    padding: 20px 0 20px 60px;
     border-radius: var(--global-border-radius);
-}
-.avatar-image-header {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid #2f3032;
 }
 
 .profile-bio {
+    border-radius: var(--global-border-radius);
+    padding: 10px;
     background-color: #0e1825;
+
+    /* Truncate after multiple lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

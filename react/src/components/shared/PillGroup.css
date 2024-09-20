@@ -1,0 +1,59 @@
+.pill-group {
+    display: flex;
+    gap: 0; /* Remove gap between pills */
+    border-radius: 50px;
+    width: 100%; /* Allow the pills to fill the container */
+}
+
+.pill {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background-color: var(--primary-50);
+    color: white;
+    flex-grow: 1; /* Allow pills to grow equally */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    border-right: 1px solid #fff; /* Border between pills */
+}
+
+.pill-first {
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+}
+
+.pill-last {
+    border-radius: 0 50px 50px 0;
+    border-right: none;
+}
+
+.pill-group .pill:last-child {
+    border-right: none;
+}
+
+/* Variants */
+.pill.success {
+    background-color: #28a745;
+}
+
+.pill.info {
+    background-color: #17a2b8;
+}
+
+.pill.warning {
+    background-color: #ffc107;
+}
+
+.pill.danger {
+    background-color: #dc3545;
+}
+
+.pill.primary {
+    background-color: #007bff;
+}
+
+.pill.secondary {
+    background-color: #6c757d;
+}

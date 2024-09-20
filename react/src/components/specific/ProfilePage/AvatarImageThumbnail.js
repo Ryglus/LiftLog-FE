@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FaPen } from 'react-icons/fa';
 import axios from 'axios';
 import defaultAvatar from "../../../assets/avatar.webp";
 import StorageService from "../../../services/StorageService";
 import './AvatarImageThumbnail.css';
-import { useToast } from "../../../contexts/ToastContext"; // For hover styles
+import { useToast } from "../../../contexts/ToastContext";
 
 const AvatarImageThumbnail = ({ path, canEdit = false }) => {
     const [profileImage, setProfileImage] = useState(null);
     const { showToast } = useToast();
+    const fileInputRef = useRef(null); // Ref for the file input
+
     // Handle profile image change
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
@@ -20,7 +22,7 @@ const AvatarImageThumbnail = ({ path, canEdit = false }) => {
             formData.append('profile_image', file);
 
             try {
-                const response = await axios.put('http://localhost:8081/api/profile', formData, {
+                await axios.put('http://localhost:8081/api/profile', formData, {
                     headers: {
                         'Authorization': `Bearer ${StorageService.getAccessToken()}`,
                     },
@@ -33,35 +35,42 @@ const AvatarImageThumbnail = ({ path, canEdit = false }) => {
         }
     };
 
+    // Trigger file input click when the image is clicked
+    const handleImageClick = () => {
+        if (canEdit) {
+            fileInputRef.current.click(); // Trigger the hidden file input click
+        }
+    };
+
     return (
         <div className="avatar-container">
+            <div className={"avatar-image-header-label"}>
+
+
+            <img
+                className={`avatar-image-header ${canEdit ? "avatar-pointer" : ""}`}
+                src={path ? "http://localhost:8081/" + path : defaultAvatar}
+                alt="Profile"
+                onClick={handleImageClick} // Handle click event on the image
+            />
             {canEdit && (
-                <input
-                    type="file"
-                    id="file-input"
-                    accept="image/*"
-                    style={{display: 'none'}}
-                    onChange={handleFileChange}
-                />
+                <>
+                    {/* Hidden file input for uploading new image */}
+                    <input
+                        type="file"
+                        id="file-input"
+                        ref={fileInputRef} // Associate the input with the ref
+                        accept="image/*"
+                        style={{display: 'none'}}
+                        onChange={handleFileChange}
+                    />
+                    {/* Badge for mobile view */}
+                    <label htmlFor="file-input" className={`edit-icon-bdge ${canEdit ? "avatar-pointer" : ""}`}>
+                        <FaPen className="edit-icon"/>
+                    </label>
+                </>
             )}
-
-            <label htmlFor="file-input" className="avatar-image-header-label">
-                <img
-                    className="avatar-image-header"
-                    src={path ? "http://localhost:8081/"+path : (defaultAvatar)}
-                    alt="Profile"
-                />
-                {canEdit && (
-                    <>
-                        {/* Badge for mobile view */}
-                        <label htmlFor="file-input" className="edit-icon-bdge">
-                            <FaPen className="edit-icon edit-icon-phone" />
-                        </label>
-                    </>
-                )}
-            </label>
-
-
+        </div>
         </div>
     );
 };

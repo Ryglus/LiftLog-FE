@@ -4,13 +4,16 @@ import axios from 'axios';
 import InNavLayout from "../layout/InNavLayout";
 import ProfileSearch from "../components/specific/ProfilePage/ProfileSearch";
 import UpdateProfile from "../components/specific/ProfilePage/UpdateProfile";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import AvatarPop from "../components/specific/ProfilePage/AvatarPop";
 import './ProfilePage.css';
 import Footer from "../components/shared/Footer";
 import { useAccount } from "../contexts/AccountContext";
 import TabSectionLayout from "../layout/TabSectionLayout";
 import AvatarImageThumbnail from "../components/specific/ProfilePage/AvatarImageThumbnail";
+import PublicProfileSection from "../components/specific/ProfilePage/PublicProfileSection";
+import RecentWorkoutsSection from "../components/specific/ProfilePage/RecentWorkoutsSection";
+import PillGroup from "../components/shared/PillGroup";
 
 const ProfilePage = () => {
     const { account } = useAccount();
@@ -20,9 +23,28 @@ const ProfilePage = () => {
     const [loading, setLoading] = useState(true); // Loading state for fetching profile
     const isLocalUser = account.user?.username === id; // Check if the profile being viewed is the logged-in user's profile
 
+
+    const weightPills = [
+        { label: '22', variant: 'success' },
+        { label: '71 Kg', variant: 'info' }
+    ];
+
     const sections = [
-        { key: 'overview', title: 'Overview', content: <div>Exercise</div> },
-        { key: 'details', title: 'Tracking & Analytics', content: <div>Exercise</div> },
+        { key: 'overview', title: 'Overview', content:  <Row>
+                <Col md={3}>
+                    <h1>Public profile</h1>
+                    <PublicProfileSection/>
+                </Col>
+                <Col md={3}>
+                    <RecentWorkoutsSection/>
+
+                </Col>
+                <Col>
+
+                </Col>
+            </Row>
+        },
+        { key: 'update', title: 'Update', content: <UpdateProfile profileData={profileData} /> },
         { key: 'settings', title: 'Community', content: <div>Exercise</div> },
     ];
 
@@ -60,38 +82,38 @@ const ProfilePage = () => {
     return (
         <div>
             <InNavLayout style={{ marginTop: '10px' }}>
-                <div className="profile-banner">
-                    <div>
-                        <div className="nameheader align-content-center">
+                <div className={"nameheader py-3 py-md-5 py-xl-8 px-md-5 px-1"}>
+                    <Row clasName="profile-banner ">
+                        <Col xs={12} md={5}>
                             <Row>
-                                <Col md={3}>
-                                    <AvatarImageThumbnail path={profileData?.profile_image} canEdit={isLocalUser} />
-
+                                <Col xs={5}>
+                                    <AvatarImageThumbnail path={profileData?.profile_image} canEdit={isLocalUser}/>
                                 </Col>
-                                <Col md={3}>
-                                    <h1>{profileData?.username}</h1>
-                                    <p className="profile-bio">{profileData?.bio}</p>
+                                <Col xs={7}>
+                                    <h1>{profileData?.full_name ? profileData.full_name : `${profileData?.username}`}</h1>
+                                    <p>@{profileData?.username}</p>
+                                    <PillGroup pills={weightPills} />
                                 </Col>
-                                <Col>
-                                    <ProfileSearch/>
-                                </Col>
+                                <p className="profile-bio"
+                                   style={{margin: '10px', padding: '10px'}}>{profileData?.bio}</p>
                             </Row>
 
+                        </Col>
+                        <Col xs={6} md={3}>
 
-
-                        </div>
-
-                        <AvatarPop scale={0.5}/>
-                    </div>
+                        </Col>
+                        <Col>
+                            <AvatarPop path={profileData?.profile_image} scale={0.5}/>
+                        </Col>
+                    </Row>
                 </div>
+
             </InNavLayout>
 
+            <ProfileSearch/>
             {/* Conditionally render TabSectionLayout if it's the logged-in user's profile */}
-            {isLocalUser && <TabSectionLayout sections={sections}/>}
+            {isLocalUser && <TabSectionLayout style={{ marginTop: '20px' }} sections={sections}/>}
 
-            <Container>
-                <UpdateProfile profileData={profileData} />
-            </Container>
             <Footer />
         </div>
     );
