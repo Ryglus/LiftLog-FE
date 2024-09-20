@@ -21,8 +21,8 @@
 /* Position the edit icon outside the border radius */
 .edit-icon-bdge {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 1rem;
+    right: 1rem;
     background-color: #0e1825;
     border-radius: 50%;
     width: 15%;
@@ -40,13 +40,6 @@
     padding-bottom:2px;
     padding-left:1px;
     color: white;
-}
-
-.edit-icon-bdge {
-    background-color: #0e1825;
-    bottom: 15px;
-    right: 15px;
-    opacity: 1;
 }
 .avatar-image-header-label:hover .edit-icon {
     font-size: 3rem;

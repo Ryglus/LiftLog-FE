@@ -15,6 +15,7 @@ import PublicProfileSection from "../components/specific/ProfilePage/PublicProfi
 import RecentWorkoutsSection from "../components/specific/ProfilePage/RecentWorkoutsSection";
 import PillGroup from "../components/shared/PillGroup";
 import {FaBirthdayCake, FaWeightHanging} from "react-icons/fa";
+import AchievmentsCard from "../components/specific/ProfilePage/cards/AchievmentsCard";
 
 const ProfilePage = () => {
     const { account } = useAccount();
@@ -36,8 +37,18 @@ const ProfilePage = () => {
                     <h1>Public profile</h1>
                     <PublicProfileSection/>
                 </Col>
-                <Col md={3}>
-                    <RecentWorkoutsSection/>
+                <Col md={9}>
+                    <Row>
+                        <Col sm={6} md={4}>
+                            <RecentWorkoutsSection/>
+                        </Col>
+                        <Col sm={6} md={4}>
+                            <AchievmentsCard/>
+                        </Col>
+                        <Col sm={6} md={4}>
+                            <RecentWorkoutsSection/>
+                        </Col>
+                    </Row>
 
                 </Col>
                 <Col>

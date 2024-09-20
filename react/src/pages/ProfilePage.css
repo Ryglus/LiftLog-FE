@@ -21,7 +21,7 @@
 .profile-bio {
     border-radius: var(--global-border-radius);
     padding: 10px;
-    background-color: #0e1825;
+    background-color: var(--secondary-800);
 
     /* Truncate after multiple lines */
     display: -webkit-box;

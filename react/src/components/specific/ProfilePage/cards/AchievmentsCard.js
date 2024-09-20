@@ -1,25 +1,28 @@
 import React from 'react';
 import { Card, Col, Image, Row } from 'react-bootstrap';
-import fitguy from './gymbro.webp';
-
+import fitguy from './trophyguy.webp';
+import './otheroption.css';
 import { FaHeart, FaEllipsisH } from 'react-icons/fa';
 
-const WorkoutHistoryCard = () => {
+const AchievmentsCard = () => {
     return (
         <Card className="workout-card">
+            {/* Top-right Ellipsis Icon */}
             <div className="ellipsis-icon">
                 <FaEllipsisH />
             </div>
 
+            {/* Image Section */}
             <div className="image-container">
                 <Image className="card-img-top" src={fitguy} />
                 <div className="title-overlay">
                     <div className="my-card-title" >
-                        WORKOUT HISTORY
+                        ACHIEVMENTS
                     </div>
                 </div>
             </div>
 
+            {/* Icons Section */}
             <div className="icon-section">
                 <Row>
                     <Col xs={4} className="text-center">
@@ -40,4 +43,4 @@ const WorkoutHistoryCard = () => {
     );
 };
 
-export default WorkoutHistoryCard;
+export default AchievmentsCard;
