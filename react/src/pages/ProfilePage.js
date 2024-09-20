@@ -14,6 +14,7 @@ import AvatarImageThumbnail from "../components/specific/ProfilePage/AvatarImage
 import PublicProfileSection from "../components/specific/ProfilePage/PublicProfileSection";
 import RecentWorkoutsSection from "../components/specific/ProfilePage/RecentWorkoutsSection";
 import PillGroup from "../components/shared/PillGroup";
+import {FaBirthdayCake, FaWeightHanging} from "react-icons/fa";
 
 const ProfilePage = () => {
     const { account } = useAccount();
@@ -25,8 +26,8 @@ const ProfilePage = () => {
 
 
     const weightPills = [
-        { label: '22', variant: 'success' },
-        { label: '71 Kg', variant: 'info' }
+        { label: <div><FaBirthdayCake style={{ marginBottom: '4px' }} /> 22</div>, variant: 'success' },
+        { label: <div><FaWeightHanging style={{ marginBottom: '4px' }} /> 71 Kg</div>, variant: 'info' }
     ];
 
     const sections = [
@@ -82,9 +83,9 @@ const ProfilePage = () => {
     return (
         <div>
             <InNavLayout style={{ marginTop: '10px' }}>
-                <div className={"nameheader py-3 py-md-5 py-xl-8 px-md-5 px-1"}>
+                <div className={"nameheader py-3 px-md-5 px-1"}>
                     <Row clasName="profile-banner ">
-                        <Col xs={12} md={5}>
+                        <Col sm={12} md={8} lg={6} xl={5}>
                             <Row>
                                 <Col xs={5}>
                                     <AvatarImageThumbnail path={profileData?.profile_image} canEdit={isLocalUser}/>
