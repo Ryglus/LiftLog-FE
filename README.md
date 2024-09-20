@@ -1,4 +1,4 @@
-<div style="display: flex; align-items: center; justify-content: center; position: relative;">
+<div align="center">
   <div>
     <img src="react/public/favicon.ico" alt="LiftLog Logo" width="100">
     <h1 style="display: inline; text-align: center;">LIFTLOG</h1>
