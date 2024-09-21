@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
-import { FaPen } from 'react-icons/fa';
+import React, {useRef, useState} from 'react';
+import {FaPen} from 'react-icons/fa';
 import axios from 'axios';
 import defaultAvatar from "../../../assets/avatar.webp";
 import StorageService from "../../../services/StorageService";
 import './AvatarImageThumbnail.css';
-import { useToast } from "../../../contexts/ToastContext";
+import {useToast} from "../../../contexts/ToastContext";
 
-const AvatarImageThumbnail = ({ path, canEdit = false }) => {
+const AvatarImageThumbnail = ({path, canEdit = false, border = true}) => {
     const [profileImage, setProfileImage] = useState(null);
     const { showToast } = useToast();
     const fileInputRef = useRef(null); // Ref for the file input
@@ -48,7 +48,7 @@ const AvatarImageThumbnail = ({ path, canEdit = false }) => {
 
 
             <img
-                className={`avatar-image-header ${canEdit ? "avatar-pointer" : ""}`}
+                className={`avatar-image-header ${border ? "avatar-image-header-bordered" : ""} ${canEdit ? "avatar-pointer" : ""}`}
                 src={path ? "http://localhost:8081/" + path : defaultAvatar}
                 alt="Profile"
                 onClick={handleImageClick} // Handle click event on the image

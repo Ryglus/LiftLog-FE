@@ -1,0 +1,26 @@
+.hero-profile-banner {
+    background-color: var(--secondary-900);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--global-border-radius);
+    overflow: hidden; /* Clip content to the border radius */
+    color: var(--text-50);
+    min-height: 500px; /* Set a consistent minimum height */
+}
+
+.profile-bio {
+    border-radius: var(--global-border-radius);
+    padding: 10px;
+    background-color: var(--secondary-800);
+    /* Truncate after multiple lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

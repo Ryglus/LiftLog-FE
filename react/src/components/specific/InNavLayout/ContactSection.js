@@ -1,13 +1,14 @@
-import React from 'react';
-import { FaHome } from 'react-icons/fa';
+import React, {useEffect, useState} from 'react';
+import {FaHome} from 'react-icons/fa';
 import logo from "../../../assets/logo.webp";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import './ContactSection.css';
-import { Col, Row } from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import AccountBar from "./AccountBar";
 
 const ContactSection = () => {
     const navigate = useNavigate();
+    const [isSticky, setIsSticky] = useState(false);
 
     // Handler for navigating to the home page
     const handleSectionClick = () => {
@@ -18,10 +19,29 @@ const ContactSection = () => {
     const stopPropagation = (e) => {
         e.stopPropagation();
     };
-    //TODO: PHONESIZE EXTEND NAV LIKE TABSECTION LAYOUT, PCSIZE USE THE ICONS ON HOVER TO NAVIGATE
+
+    // Function to handle scroll event and toggle sticky class
+    const handleScroll = () => {
+        const header = document.querySelector('.contact-section');
+        const stickyOffset = header.offsetTop + header.offsetHeight; // Detect once fully scrolled out
+        if (window.pageYOffset > stickyOffset) {
+            setIsSticky(true);
+        } else {
+            setIsSticky(false);
+        }
+    };
+
+    // Add scroll event listener
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <Row className="contact-section contact-section-overlay justify-content-center" onClick={handleSectionClick}>
-            {/* Home Icon (hidden by default) */}
+        <Row className={`contact-section ${isSticky ? 'sticky-header' : ''}`} onClick={handleSectionClick}>
+            {/* Home Icon */}
             <FaHome className="home-icon" />
 
             <Col xs={1} md={"auto"} className="d-flex justify-content-center">

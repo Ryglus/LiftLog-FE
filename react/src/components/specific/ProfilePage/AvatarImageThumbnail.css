@@ -7,11 +7,14 @@
 .avatar-image-header {
     width: 100%;
     height: 100%;
-    border: 3px solid #2f3032;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     transition: all 0.3s ease;
     object-fit: cover;
+}
+
+.avatar-image-header-bordered {
+    border: 3px solid #2f3032;
 
 }
 .avatar-pointer {

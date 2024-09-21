@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { ButtonGroup, Button, Dropdown } from 'react-bootstrap';
-import {FaUserCircle, FaSignInAlt, FaSearchengin} from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { useAccount } from '../../../contexts/AccountContext';
+import React, {useEffect, useState} from 'react';
+import {Button, ButtonGroup, Dropdown} from 'react-bootstrap';
+import {FaSignInAlt} from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom';
+import {useAccount} from '../../../contexts/AccountContext';
 import './AccountBar.css';
+import AvatarImageThumbnail from "../ProfilePage/AvatarImageThumbnail";
 
 const AccountBar = () => {
     const { account, logout } = useAccount();
@@ -35,7 +36,10 @@ const AccountBar = () => {
                 <ButtonGroup vertical={!isSmallScreen}  className='account-button-group'>
                     {/* Profile Button */}
                     <Button variant="outline-light" onClick={() => handleRouteClick('/profile')}>
-                        <FaUserCircle size={28} />
+                        <div style={{width: '40px'}}>
+                            <AvatarImageThumbnail path={account.user?.profile_image} canEdit={false} border={false}/>
+                        </div>
+
                     </Button>
 
                     {/* Dropdown with Settings and Logout */}

@@ -86,3 +86,35 @@
     position: relative; /* Ensure it's not affected by the overlay */
     filter: none; /* Prevent the darkening effect */
 }
+
+/* Sticky Header - Clamp it to the top when scrolled out of view */
+.sticky-header {
+    position: fixed;
+    height: 100px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: var(--background-900); /* Make sure it's visible on top */
+    padding: 10px 20px;
+    border-radius: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for emphasis */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Ensure when it's sticky, everything is in a single row */
+.sticky-header .contact-title {
+    transform: none; /* No vertical rotation */
+    font-size: 2rem;
+}
+
+/* Ensure items don't stack in sticky mode */
+.sticky-header .contact-section {
+    flex-direction: row;
+    align-items: center;
+}
+
+.sticky-header .logo {
+    width: 50px;
+    height: 50px;
+}
