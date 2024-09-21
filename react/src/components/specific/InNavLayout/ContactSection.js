@@ -5,8 +5,10 @@ import {useNavigate} from 'react-router-dom';
 import './ContactSection.css';
 import {Col, Row} from "react-bootstrap";
 import AccountBar from "./AccountBar";
+import {useAccount} from "../../../contexts/AccountContext";
 
 const ContactSection = () => {
+    const { account } = useAccount();
     const navigate = useNavigate();
     const [isSticky, setIsSticky] = useState(false);
 
@@ -47,10 +49,17 @@ const ContactSection = () => {
             <Col xs={1} md={"auto"} className="d-flex justify-content-center">
                 <img src={logo} className="logo" alt="Logo" />
             </Col>
+            {/*TODO: bigger menu for when logged in, maybe fix align issue on sticky*/}
+            {account.isLoggedIn ? (
+                <Col xs={8} md={"auto"} className="d-flex flex-column align-items-center justify-content-center">
+                    <h1 className="contact-title">LIFTLOG</h1>
+                </Col>
+            ):(
+                <Col xs={8} md={"auto"} className="d-flex flex-column align-items-center justify-content-center">
+                    <h1 className="contact-title">LIFTLOG</h1>
+                </Col>
+            )}
 
-            <Col xs={8} md={"auto"} className="d-flex flex-column align-items-center justify-content-center">
-                <h1 className="contact-title">LIFTLOG</h1>
-            </Col>
 
             <Col xs={2} md={"auto"} className="d-flex flex-column align-items-center justify-content-center justify-content-md-end">
                 {/* The AccountBar itself is wrapped with stopPropagation */}
