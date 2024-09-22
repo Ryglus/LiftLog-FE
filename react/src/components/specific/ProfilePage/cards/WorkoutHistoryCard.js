@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Image, Row } from 'react-bootstrap';
-import fitguy from './gymbro.webp';
+import fitguy from './bellguy.webp';
 
 import { FaHeart, FaEllipsisH } from 'react-icons/fa';
 

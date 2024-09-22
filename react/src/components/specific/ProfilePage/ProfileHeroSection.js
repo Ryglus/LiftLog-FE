@@ -56,7 +56,7 @@ const ProfileHeroSection = () => {
     if (loading) return <div>Loading...</div>;
     if (!profileData) return <div>Profile not found</div>;
     return (
-        <Row className="ps-md-5 p-2 hero-profile-banner">
+        <Row className="ps-md-5 m-1 p-2 hero-profile-banner">
             <Col md={7}>
                 <Row>
                     <Col xs={5}>
