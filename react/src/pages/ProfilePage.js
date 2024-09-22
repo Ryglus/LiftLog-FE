@@ -14,10 +14,9 @@ import TabSectionLayout from "../layout/TabSectionLayout";
 import PublicProfileSection from "../components/specific/ProfilePage/PublicProfileSection";
 import RecentWorkoutsSection from "../components/specific/ProfilePage/RecentWorkoutsSection";
 
-import AchievmentsCard from "../components/specific/ProfilePage/cards/AchievmentsCard";
-import PlanTrackerCard from "../components/specific/ProfilePage/cards/PlanTrackerCard";
-
 import ProfileHeroSection from "../components/specific/ProfilePage/ProfileHeroSection";
+
+import PinnedWorkoutsSection from "../components/specific/ProfilePage/PinnedWorkoutSection";
 
 const ProfilePage = () => {
     const { account } = useAccount();
@@ -34,29 +33,9 @@ const ProfilePage = () => {
                     <PublicProfileSection/>
                 </Col>
                 <Col md={12} lg={9}>
-                    <Row>
-                        <Col sm={6} md={4}>
-                            <RecentWorkoutsSection/>
-                        </Col>
-                        <Col sm={6} md={4}>
-                            <AchievmentsCard/>
-                        </Col>
-                        <Col sm={6} md={4}>
-                            <PlanTrackerCard/>
-                        </Col>
-                    </Row>
+                    <PinnedWorkoutsSection/>
                     <h1 className={"mt-2"}>Recent activity</h1>
-                    <Row>
-                        <Col sm={6} md={4}>
-                            <RecentWorkoutsSection/>
-                        </Col>
-                        <Col sm={6} md={4}>
-                            <AchievmentsCard/>
-                        </Col>
-                        <Col sm={6} md={4}>
-                            <PlanTrackerCard/>
-                        </Col>
-                    </Row>
+                    <RecentWorkoutsSection/>
                 </Col>
                 <Col>
 
