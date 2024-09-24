@@ -54,12 +54,19 @@
     object-fit: cover;
 }
 
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 20px;
+}
 /* Profile username */
-.profile-username {
-    font-size: 16px;
-    color: #333;
+.profile-fullname {
+    font-size: 20px;
 }
 
+.profile-username {
+    font-size: 13px;
+}
 /* Spinner styling */
 .spinner-item {
     display: flex;

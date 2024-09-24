@@ -41,7 +41,8 @@ const ProfileHeroSection = () => {
 
     const fetchProfile = async (query) => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/search`, {
+            console.log(id, query)
+            const response = await axios.get(`http://localhost:8081/api/profile`, {
                 params: {query}
             });
             setProfileData(response.data[0]);
