@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-import './ProfileSearch.css'; // Import the CSS file for styling
+import './ProfileSearch.css';
+import AvatarImageThumbnail from "./AvatarImageThumbnail";
 
 const ProfileSearch = () => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(-1); // Track active item index
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,10 +17,31 @@ const ProfileSearch = () => {
                 handleSearch();
             }
             setIsTyping(false);
-        }, 500); // Adjust delay time as needed (500ms)
+        }, 200); // Adjust delay time as needed
 
         return () => clearTimeout(delayDebounceFn);
     }, [query]);
+
+    // Listen for key presses to navigate between profile items
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'ArrowDown') {
+                setActiveIndex((prev) => (prev < results.length - 1 ? prev + 1 : 0));
+            }
+            if (e.key === 'ArrowUp') {
+                setActiveIndex((prev) => (prev > 0 ? prev - 1 : results.length - 1));
+            }
+            if (e.key === 'Enter' && activeIndex !== -1 && results.length > 0) {
+                handleProfileClick(results[activeIndex].username);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [results, activeIndex]);
 
     const handleSearch = async () => {
         try {
@@ -27,6 +50,10 @@ const ProfileSearch = () => {
             });
             if (response.data.length > 0) {
                 setResults(response.data);
+                setActiveIndex(0); // Set the first result as active
+            } else {
+                setResults([]);
+                setActiveIndex(-1);
             }
         } catch (error) {
             console.error('Error searching profiles:', error);
@@ -55,26 +82,25 @@ const ProfileSearch = () => {
                 className="search-input"
             />
             {(results.length > 0 || isTyping) && query ? (
-                <ul className="profile-results">
-                    {isTyping && (
-                        <li className="spinner-item">
-                            <div className="spinner"></div>
-                        </li>
-                    )}
-                    {results &&
-                        (results.map((user) => (
+                <div className="profile-results-section">
+                    <ul className="profile-results">
+                        {isTyping && (
+                            <li className="spinner-item">
+                                <div className="spinner"></div>
+                            </li>
+                        )}
+                        {results.map((user, index) => (
                             <li
                                 key={user.id}
-                                className="profile-item"
+                                className={`profile-item ${index === activeIndex ? 'active' : ''}`} // Apply 'active' class if selected
                                 onClick={() => handleProfileClick(user.username)}
                                 role="button"
                                 tabIndex={0}
                                 onKeyDown={(e) => e.key === 'Enter' && handleProfileClick(user.username)}
                             >
-                                {user.profile_image && (
-                                    <img src={`http://localhost:8081/${user.profile_image}`} alt="Profile"
-                                         className="profile-image"/>
-                                )}
+                                <div className="profile-image">
+                                    <AvatarImageThumbnail border={false} path={user.profile_image} canEdit={false}/>
+                                </div>
                                 <div className="profile-info">
                                     {user.full_name ? (
                                         <>
@@ -86,9 +112,9 @@ const ProfileSearch = () => {
                                     )}
                                 </div>
                             </li>
-                        )))
-                    }
-                </ul>
+                        ))}
+                    </ul>
+                </div>
             ) : null}
         </div>
     );
