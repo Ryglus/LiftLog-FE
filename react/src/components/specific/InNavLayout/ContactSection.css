@@ -108,6 +108,11 @@
     font-size: 2rem;
 }
 
+.sticky-header .account-button-group {
+    flex-direction: row;
+    justify-content: center;
+}
+
 /* Ensure items don't stack in sticky mode */
 .sticky-header .contact-section {
     flex-direction: row;

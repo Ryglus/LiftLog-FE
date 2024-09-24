@@ -11,7 +11,7 @@ const ContactSection = () => {
     const { account } = useAccount();
     const navigate = useNavigate();
     const [isSticky, setIsSticky] = useState(false);
-
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768); // Track screen size
     // Handler for navigating to the home page
     const handleSectionClick = () => {
         navigate('/');
@@ -40,6 +40,17 @@ const ContactSection = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+// Detect screen size on window resize
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth <= 768);
+        };
+        handleResize(); // Set initial state
+        window.addEventListener('resize', handleResize); // Listen for resize events
+
+        return () => window.removeEventListener('resize', handleResize); // Clean up event listener
+    }, []);
+
 
     return (
         <Row className={`contact-section ${isSticky ? 'sticky-header' : ''}`} onClick={handleSectionClick}>
@@ -64,7 +75,7 @@ const ContactSection = () => {
             <Col xs={2} md={"auto"} className="d-flex flex-column align-items-center justify-content-center justify-content-md-end">
                 {/* The AccountBar itself is wrapped with stopPropagation */}
                 <div className="account-bar-section" onClick={stopPropagation}>
-                    <AccountBar />
+                    <AccountBar vertical={!isSmallScreen && !isSticky}/>
                 </div>
             </Col>
         </Row>

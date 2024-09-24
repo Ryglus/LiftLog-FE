@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import NoPage from "./pages/NoPage";
 import HomeLayout from "./layout/HomeLayout";
@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 
 import ProfilePage from "./pages/ProfilePage";
+import AnalyticsPage from "./pages/AnalyticsPage";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route index element={<ProfilePage/>}/>
           <Route path="/profile/settings" element={<ProfilePage/>}/>
           <Route path="/profile/:id" element={<ProfilePage/>}/>
+        </Route>
+        <Route path="/tracking" element={<HomeLayout/>}>
+          <Route index element={<AnalyticsPage/>}/>
         </Route>
         <Route path="*" element={<NoPage/>}/>
       </Routes>

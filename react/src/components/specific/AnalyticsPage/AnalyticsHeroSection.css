@@ -1,0 +1,66 @@
+.hero-banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--global-border-radius);
+    overflow: hidden; /* Clip content to the border radius */
+    color: var(--text-50);
+    min-height: 500px; /* Set a consistent minimum height */
+}
+
+.hero-banner .hero-title,
+.hero-banner .hero-subtitle {
+    position: relative;
+    z-index: 2;
+    pointer-events: none; /* Prevent clicks on text */
+}
+
+.hero-banner .hero-btn {
+    position: relative;
+    z-index: 2;
+    pointer-events: auto; /* Ensure buttons are still clickable */
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--text-50);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    color: var(--text-100);
+}
+
+.hero-banner button {
+    transition: transform 0.3s ease-in-out;
+    background-color: var(--primary-500);
+    color: var(--text-50);
+}
+
+.hero-banner button:hover {
+    transform: scale(1.05);
+    background-color: var(--primary-600);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-banner {
+        padding: 30px 0; /* Reduce padding on smaller screens */
+        min-height: 300px; /* Adjust height for smaller screens */
+    }
+}

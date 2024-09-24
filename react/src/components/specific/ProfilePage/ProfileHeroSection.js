@@ -72,7 +72,7 @@ const ProfileHeroSection = () => {
 
             </Col>
             <Col md={5}>
-                <AvatarPop backgroundColor={'#191817'} defaultColor={'red'}/>
+                <AvatarPop backgroundColor={'#191817'}/>
             </Col>
         </Row>
 
