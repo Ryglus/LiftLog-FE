@@ -2,6 +2,7 @@ import React from 'react';
 import {Col, Row} from 'react-bootstrap';
 
 import './AnalyticsHeroSection.css';
+import TestComponent from "./TestComponent";
 
 
 const AnalyticsHeroSection = () => {
@@ -28,6 +29,7 @@ const AnalyticsHeroSection = () => {
             </Col>
             <Col md={5}>
             </Col>
+            <TestComponent/>
         </Row>
 
 
