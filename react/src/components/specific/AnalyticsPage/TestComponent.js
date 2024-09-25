@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import StorageService from "../../../services/StorageService";
+import SplitCalendarPicker from "./SplitComponents/SplitCalendarPicker";
 
 const TestComponent = () => {
-    const [userId, setUserId] = useState(""); // We can remove this since we get userId from JWT in the backend
     const [schedule, setSchedule] = useState(null); // Store the fetched schedule
+    const [scheduleTitle, setScheduleTitle] = useState(""); // Title for creating/updating schedule
+    const [startDate, setStartDate] = useState(""); // Start date for the schedule
+    const [splitInterval, setSplitInterval] = useState(7); // Default split interval
+
     const [exerciseId, setExerciseId] = useState("");
     const [weight, setWeight] = useState("");
     const [sets, setSets] = useState("");
     const [reps, setReps] = useState("");
+
     const [message, setMessage] = useState("");
 
     // Fetch schedule information on component mount
@@ -21,10 +26,13 @@ const TestComponent = () => {
         try {
             const response = await axios.get("http://localhost:8082/api/tracking/schedule", {
                 headers: {
-                    'Authorization': `Bearer ${StorageService.getAccessToken()}`
+                    Authorization: `Bearer ${StorageService.getAccessToken()}`
                 }
-            })
-            setSchedule(response.data); // Store the schedule in the state
+            });
+            console.log(response.data[0])
+            setSchedule(response.data[0]); // Store the schedule in the state
+            setScheduleTitle(response.data[0].title); // Set the schedule title from fetched data
+            setSplitInterval(response.data[0].split_interval); // Set split interval
             setMessage("Schedule fetched successfully!");
         } catch (error) {
             setMessage(`Error fetching schedule: ${error.response?.data?.error || error.message}`);
@@ -34,14 +42,20 @@ const TestComponent = () => {
     // Create or update a schedule (PUT /schedule)
     const createOrUpdateSchedule = async () => {
         try {
-            const response = await axios.put("http://localhost:8082/api/tracking/schedule", {
-                start_date: new Date(), // Start today
-                split_interval: 7, // Example: 7-day split
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${StorageService.getAccessToken()}`
+            const response = await axios.put(
+                "http://localhost:8082/api/tracking/schedule",
+                {
+                    id: 1,
+                    title: scheduleTitle,
+                    start_date: new Date(startDate), // Format date as YYYY-MM-DD
+                    split_interval: parseInt(splitInterval, 10),
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${StorageService.getAccessToken()}`
+                    }
                 }
-            })
+            );
             setSchedule(response.data); // Update the state with the new schedule
             setMessage("Schedule created/updated successfully!");
         } catch (error) {
@@ -52,16 +66,20 @@ const TestComponent = () => {
     // Log a workout (PUT /log-workout)
     const logWorkout = async () => {
         try {
-            await axios.put("http://localhost:8082/api/log-workout", {
-                exercise_id: exerciseId,
-                weight: parseFloat(weight),
-                sets: parseInt(sets, 10),
-                reps: parseInt(reps, 10),
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${StorageService.getAccessToken()}`
+            await axios.put(
+                "http://localhost:8082/api/log-workout",
+                {
+                    exercise_id: exerciseId,
+                    weight: parseFloat(weight),
+                    sets: parseInt(sets, 10),
+                    reps: parseInt(reps, 10),
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${StorageService.getAccessToken()}`
+                    }
                 }
-            })
+            );
             setMessage("Workout logged successfully!");
         } catch (error) {
             setMessage(`Error logging workout: ${error.response?.data?.error || error.message}`);
@@ -73,16 +91,15 @@ const TestComponent = () => {
             <div>
                 {schedule ? (
                     <div>
-                        {console.log(schedule)}
                         <h1>Title: {schedule.title}</h1>
                         <p>Start Date: {schedule.start_date}</p>
-                        <p>Split Interval: {schedule.split_interval} days</p>
+                        <SplitCalendarPicker splitLength={schedule.split_interval} totalDays={31}/>
                         <h3>Workouts:</h3>
                         {schedule.workouts && schedule.workouts.length > 0 ? (
-                            schedule.workouts.map((workout) => (
+                            schedule.workouts.map((workout, index) => (
                                 <div key={workout.id}>
                                     <h4>Workout Name: {workout.workout_name}</h4>
-                                    <p>Day of Split: {workout.day_of_split}</p>
+                                    <p>Day: {index + 1}</p> {/* Index represents the day */}
                                     {workout.exercises.length > 0 ? (
                                         workout.exercises.map((exercise) => (
                                             <div key={exercise.id}>
@@ -106,6 +123,32 @@ const TestComponent = () => {
 
             <div>
                 <h2>Create/Update Schedule</h2>
+                <div>
+                    <label>Title: </label>
+                    <input
+                        type="text"
+                        placeholder="Schedule Title"
+                        value={scheduleTitle}
+                        onChange={(e) => setScheduleTitle(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Start Date: </label>
+                    <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Split Interval (days): </label>
+                    <input
+                        type="number"
+                        placeholder="Split Interval"
+                        value={splitInterval}
+                        onChange={(e) => setSplitInterval(e.target.value)}
+                    />
+                </div>
                 <button onClick={createOrUpdateSchedule}>Create/Update Schedule</button>
             </div>
 
