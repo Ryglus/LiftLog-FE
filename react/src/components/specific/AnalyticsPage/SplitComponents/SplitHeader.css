@@ -1,0 +1,31 @@
+.split-header-container {
+    background-color: #131a27;
+    border-radius: var(--global-border-radius);
+    padding: 15px;
+    position: relative;
+}
+
+.split-dropdown-container {
+    position: relative;
+    width: 100%;
+
+}
+
+.split-dropdown {
+    border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
+    background-color: #1b304b;
+    position: absolute;
+    width: 96%;
+    left: 2%;
+    overflow: hidden;
+    padding-top: 10px;
+    height: 0;
+    opacity: 0;
+    transition: height 0.5s ease, opacity 0.5s ease;
+}
+
+.split-dropdown.open {
+
+    opacity: 1;
+}
+

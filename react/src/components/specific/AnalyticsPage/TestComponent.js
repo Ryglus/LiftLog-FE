@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import StorageService from "../../../services/StorageService";
-import SplitCalendarPicker from "./SplitComponents/SplitCalendarPicker";
+import SplitHeader from "./SplitComponents/SplitHeader";
 
 const TestComponent = () => {
     const [schedule, setSchedule] = useState(null); // Store the fetched schedule
+    const [schedules, setSchedules] = useState(null); // Store the fetched schedule
     const [scheduleTitle, setScheduleTitle] = useState(""); // Title for creating/updating schedule
     const [startDate, setStartDate] = useState(""); // Start date for the schedule
     const [splitInterval, setSplitInterval] = useState(7); // Default split interval
@@ -29,7 +30,7 @@ const TestComponent = () => {
                     Authorization: `Bearer ${StorageService.getAccessToken()}`
                 }
             });
-            console.log(response.data[0])
+            setSchedules(response.data);
             setSchedule(response.data[0]); // Store the schedule in the state
             setScheduleTitle(response.data[0].title); // Set the schedule title from fetched data
             setSplitInterval(response.data[0].split_interval); // Set split interval
@@ -91,9 +92,7 @@ const TestComponent = () => {
             <div>
                 {schedule ? (
                     <div>
-                        <h1>Title: {schedule.title}</h1>
-                        <p>Start Date: {schedule.start_date}</p>
-                        <SplitCalendarPicker splitLength={schedule.split_interval} totalDays={31}/>
+                        <SplitHeader schedules={schedules}/>
                         <h3>Workouts:</h3>
                         {schedule.workouts && schedule.workouts.length > 0 ? (
                             schedule.workouts.map((workout, index) => (

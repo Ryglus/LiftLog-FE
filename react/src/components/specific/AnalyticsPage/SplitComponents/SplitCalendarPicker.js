@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Col, Row} from 'react-bootstrap';
-import './SplitCalendarPicker.css'; // Custom styles
+import './SplitCalendarPicker.css';
+import {FaArrowDown} from "react-icons/fa"; // Custom styles
 
 // Helper function to get the start of the week (Monday)
 const getWeekStart = (date) => {
@@ -27,15 +28,13 @@ const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const SplitCalendarPicker = ({splitLength = 4, totalDays = splitLength * 2 + 2}) => {
     const [selectedDays, setSelectedDays] = useState([]);
-
     const today = new Date();
     const weekStart = getWeekStart(today); // Get Monday of the current week
     const daysInRow = generateDays(weekStart, totalDays); // Generate days for the calendar
 
     // Function to check if a day is selected based on repeating logic
     const isDaySelected = (day) => {
-        // Check if the day is selected based on the repeating split logic
-        return selectedDays.some(selectedDate => {
+        return selectedDays.some((selectedDate) => {
             const selectedDay = new Date(selectedDate);
             const diffDays = Math.floor((day - selectedDay) / (1000 * 60 * 60 * 24));
             return diffDays % splitLength === 0;
@@ -46,7 +45,7 @@ const SplitCalendarPicker = ({splitLength = 4, totalDays = splitLength * 2 + 2})
     const toggleDaySelection = (date) => {
         const formattedDate = date.toISOString().split('T')[0];
         if (selectedDays.includes(formattedDate)) {
-            setSelectedDays(selectedDays.filter(day => day !== formattedDate));
+            setSelectedDays(selectedDays.filter((day) => day !== formattedDate));
         } else {
             setSelectedDays([...selectedDays, formattedDate]);
         }
@@ -63,8 +62,13 @@ const SplitCalendarPicker = ({splitLength = 4, totalDays = splitLength * 2 + 2})
                 // Disable days beyond the totalDays limit
                 const isBeyondSplit = index >= splitLength;
 
+                // Check if the day is today
+                const isToday = today.toDateString() === day.toDateString();
                 return (
                     <Col key={formattedDate} className="calendar-col">
+                        {isToday && (
+                            <FaArrowDown className={"arrow-day-pointer"} size={20}/>
+                        )}
                         <Button
                             variant={isSelected ? 'success' : 'outline-secondary'}
                             className="calendar-day"

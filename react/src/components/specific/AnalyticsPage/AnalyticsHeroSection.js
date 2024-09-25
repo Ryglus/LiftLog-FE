@@ -14,6 +14,7 @@ const AnalyticsHeroSection = () => {
      */
     return (
         <Row className="ps-md-5 m-1 p-2 hero-profile-banner">
+            <TestComponent/>
             <Col md={7}>
                 <Row>
                     <Col xs={5}>
@@ -29,7 +30,7 @@ const AnalyticsHeroSection = () => {
             </Col>
             <Col md={5}>
             </Col>
-            <TestComponent/>
+
         </Row>
 
 
