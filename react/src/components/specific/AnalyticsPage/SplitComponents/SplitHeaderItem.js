@@ -1,4 +1,3 @@
-import SplitCalendarPicker from "./SplitCalendarPicker";
 import React from "react";
 
 import './SplitHeader.css'
@@ -12,7 +11,7 @@ const SplitHeaderItem = ({schedule}) => {
                 <h1>{schedule.title}</h1>
             </Col>
             <Col>
-                <SplitCalendarPicker splitLength={schedule.split_interval} totalDays={schedule.split_interval}/>
+
             </Col>
         </Row>
     );

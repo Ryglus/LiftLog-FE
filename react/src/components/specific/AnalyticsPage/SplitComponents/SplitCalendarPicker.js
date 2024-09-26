@@ -1,88 +1,214 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Row} from 'react-bootstrap';
 import './SplitCalendarPicker.css';
-import {FaArrowDown} from "react-icons/fa"; // Custom styles
+import DragDropWorkout from './DragDropWorkout';
+import {addDays, format, isToday, parseISO, startOfWeek} from 'date-fns';
+import axios from "axios";
+import StorageService from "../../../../services/StorageService";
+import {FaArrowDown, FaTimes} from "react-icons/fa";
 
-// Helper function to get the start of the week (Monday)
-const getWeekStart = (date) => {
-    const day = date.getDay();
-    const difference = (day === 0 ? 6 : day - 1);
-    const weekStart = new Date(date);
-    weekStart.setDate(date.getDate() - difference);
-    return weekStart;
-};
+const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), editable = false, workouts = []}) => {
+    const [weekTiles, setWeekTiles] = useState([]); // Array to store tiles for the calendar
+    const updatedAtDate = parseISO(schedule.updated_at); // Parse the updated_at date
 
-// Helper function to generate days in a row
-const generateDays = (start, length) => {
-    const days = [];
-    for (let i = 0; i < length; i++) {
-        const newDate = new Date(start);
-        newDate.setDate(start.getDate() + i);
-        days.push(newDate);
-    }
-    return days;
-};
+    // Function to generate the week based on updated_at and split_interval
+    const generateWeekTiles = () => {
+        const startOfCurrentWeek = startOfWeek(updatedAtDate, {weekStartsOn: 1}); // Start from Monday
+        const tiles = [];
 
-// Short day names
-const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        for (let i = 0; i < totalDays; i++) {
+            const currentDay = addDays(startOfCurrentWeek, i);
+            const formattedDate = format(currentDay, 'yyyy-MM-dd');
 
-const SplitCalendarPicker = ({splitLength = 4, totalDays = splitLength * 2 + 2}) => {
-    const [selectedDays, setSelectedDays] = useState([]);
-    const today = new Date();
-    const weekStart = getWeekStart(today); // Get Monday of the current week
-    const daysInRow = generateDays(weekStart, totalDays); // Generate days for the calendar
+            // Determine if the day is disabled (beyond the split_interval)
+            const isDisabled = i >= schedule.split_interval;
 
-    // Function to check if a day is selected based on repeating logic
-    const isDaySelected = (day) => {
-        return selectedDays.some((selectedDate) => {
-            const selectedDay = new Date(selectedDate);
-            const diffDays = Math.floor((day - selectedDay) / (1000 * 60 * 60 * 24));
-            return diffDays % splitLength === 0;
-        });
+            // Find if there is a workout scheduled for this day
+            const scheduledWorkouts = schedule.schedule_workouts.filter((sw) =>
+                sw.days_of_split.includes(i % schedule.split_interval) // i % schedule.split_interval handles day indexes cycling within the split interval
+            );
+
+            // Get the corresponding workout details if scheduled
+            const assignedWorkouts = scheduledWorkouts.map((scheduledWorkout) => {
+                return workouts.find((workout) => workout.id === scheduledWorkout.workout_id);
+            });
+
+            // Push the tile with or without a scheduled workout
+            tiles.push({
+                date: formattedDate,
+                dayIndex: i,
+                assignedWorkouts,
+                isDisabled,
+            });
+        }
+
+        setWeekTiles(tiles);
     };
 
-    // Handle day selection
-    const toggleDaySelection = (date) => {
-        const formattedDate = date.toISOString().split('T')[0];
-        if (selectedDays.includes(formattedDate)) {
-            setSelectedDays(selectedDays.filter((day) => day !== formattedDate));
-        } else {
-            setSelectedDays([...selectedDays, formattedDate]);
+    const assignWorkoutToSchedule = async (wrkoutSchedule) => {
+        try {
+            let data2send = {
+                schedule_id: wrkoutSchedule.schedule_id,
+                workout_id: wrkoutSchedule.workout_id,
+                days_of_split: wrkoutSchedule.days_of_split,
+            };
+            const response = await axios.put('http://localhost:8082/api/tracking/schedule/workouts', data2send, {
+                headers: {
+                    Authorization: `Bearer ${StorageService.getAccessToken()}`
+                }
+            });
+            if (response.status === 200) {
+                console.log('Workout assigned successfully');
+            }
+        } catch (error) {
+            console.error('Error assigning workout to schedule:', error);
         }
     };
 
-    // Render each day block
+    const clearWorkoutsFromDay = (tile) => {
+        // Keep track of the original schedule_workouts before clearing
+        const originalScheduleWorkouts = JSON.parse(JSON.stringify(schedule.schedule_workouts));
+
+        // Remove all workouts from that day (dayIndex) from schedule.schedule_workouts
+        schedule.schedule_workouts.forEach(sw => {
+            sw.days_of_split = sw.days_of_split.filter(dayIndex => dayIndex !== tile.dayIndex % schedule.split_interval);
+        });
+
+        // Filter out the workouts that are no longer assigned to any days
+        schedule.schedule_workouts = schedule.schedule_workouts.filter(sw => sw.days_of_split.length > 0);
+
+        schedule.schedule_workouts.forEach(e => {
+            assignWorkoutToSchedule(e);
+        })
+
+        // Update the weekTiles state to reflect the cleared day
+        setWeekTiles(prevTiles =>
+            prevTiles.map(weekTile =>
+                weekTile.dayIndex === tile.dayIndex ? {...weekTile, assignedWorkouts: []} : weekTile
+            )
+        );
+        generateWeekTiles();
+    };
+
+    // Handle drag start
+    const handleDragStart = (e, workout) => {
+        e.dataTransfer.setData('workout', JSON.stringify(workout));
+    };
+
+    // Handle drop
+    const handleDrop = (e, tile) => {
+        const workout = JSON.parse(e.dataTransfer.getData('workout'));
+        const dayIndex = tile.dayIndex % schedule.split_interval; // Calculate the correct day index within the split
+
+        let scheduleWorkout = schedule.schedule_workouts.find(sw => sw.workout_id === workout.id);
+        let changedWorkout = null;
+
+        if (scheduleWorkout) {
+            // If the workout is already scheduled, update the days_of_split array
+            if (!scheduleWorkout.days_of_split.includes(dayIndex)) {
+                scheduleWorkout.days_of_split.push(dayIndex);
+                changedWorkout = scheduleWorkout; // Track the changed workout
+            }
+        } else {
+            // If it's a new workout, add a new schedule_workout entry
+            const newScheduleWorkout = {
+                ID: Date.now(), // Temporary unique ID
+                schedule_id: schedule.id,
+                workout_id: workout.id,
+                days_of_split: [dayIndex], // Add the new day to the days_of_split array
+            };
+            schedule.schedule_workouts.push(newScheduleWorkout);
+            changedWorkout = newScheduleWorkout; // Track the new workout
+        }
+
+        // Log only the changed schedule_workouts
+        if (changedWorkout) {
+            assignWorkoutToSchedule(changedWorkout);
+        }
+
+        // Update the weekTiles state to reflect the dropped workout
+        const updatedWeekTiles = weekTiles.map((weekTile) => {
+            if (weekTile.dayIndex === tile.dayIndex) {
+                return {
+                    ...weekTile,
+                    assignedWorkouts: [...weekTile.assignedWorkouts, workout], // Append the new workout
+                };
+            }
+            return weekTile;
+        });
+
+        setWeekTiles(updatedWeekTiles); // Update the week tiles to reflect changes
+        generateWeekTiles();
+    };
+
+    // UseEffect to trigger week generation based on schedule
+    useEffect(() => {
+        generateWeekTiles();
+    }, [schedule, workouts]);
+
     return (
-        <Row className="calendar-row">
-            {daysInRow.map((day, index) => {
-                const formattedDate = day.toISOString().split('T')[0];
-                const isSelected = isDaySelected(day);
-                const dayName = dayNames[day.getDay() === 0 ? 6 : day.getDay() - 1]; // Get the shortened day name
-
-                // Disable days beyond the totalDays limit
-                const isBeyondSplit = index >= splitLength;
-
-                // Check if the day is today
-                const isToday = today.toDateString() === day.toDateString();
-                return (
-                    <Col key={formattedDate} className="calendar-col">
-                        {isToday && (
+        <div>
+            <Row className="calendar-row">
+                {weekTiles.map((tile, index) => (
+                    <Col key={index} className="calendar-col">
+                        {isToday(tile.date) && (
                             <FaArrowDown className={"arrow-day-pointer"} size={20}/>
                         )}
-                        <Button
-                            variant={isSelected ? 'success' : 'outline-secondary'}
-                            className="calendar-day"
-                            onClick={() => toggleDaySelection(day)}
-                            disabled={isBeyondSplit} // Disable if beyond splitLength
+                        <div
+                            className={`day-tile ${tile.isDisabled ? 'disabled-day' : ''}`} // Add 'disabled-day' class for styling
+                            style={{
+                                cursor: tile.isDisabled ? 'not-allowed' : 'pointer',
+                            }}
+                            onDragOver={(e) => !tile.isDisabled && e.preventDefault()} // Allow drag over only for non-disabled days
+                            onDrop={(e) => !tile.isDisabled && handleDrop(e, tile)} // Handle drop for non-disabled days
                         >
-                            <div>{day.getDate()}</div>
-                            {/* Date */}
-                            <small>{dayName}</small> {/* Day Name */}
-                        </Button>
+                            <div className="day-content">
+                                <div className="day-number">{format(parseISO(tile.date), 'dd')}</div>
+                                <small className="day-name">{format(parseISO(tile.date), 'EEE')}</small>
+                                {!tile.isDisabled && editable && (
+                                    <Button
+                                        className="clear-button"
+                                        onClick={() => clearWorkoutsFromDay(tile)}
+                                    >
+                                        <FaTimes size={12}/> {/* Add the FA icon inside the button */}
+                                    </Button>
+                                )}
+                            </div>
+                            <div className="workout-container">
+                                {tile?.assignedWorkouts?.map((workout, workoutIndex) => (
+                                    <div
+                                        key={workout.id}
+                                        className="dropped-workout"
+                                        style={{
+                                            backgroundColor: workout.color,
+                                            height: `${100 / (tile.assignedWorkouts.exercises?.length || tile.assignedWorkouts.length)}%`, // Dynamically size based on number of workouts
+                                        }}
+                                    >
+                                        <span className="workout-color"></span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </Col>
-                );
-            })}
-        </Row>
+                ))}
+            </Row>
+
+            {editable && (
+                <div className="workouts-section">
+                    <h5>Available Workouts</h5>
+                    <Row>
+                        {workouts.map((workout) => (
+                            <Col key={workout.id} className="workout-tile-container">
+                                <DragDropWorkout
+                                    workout={workout}
+                                    onDragStart={(e) => handleDragStart(e, workout)}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
+                </div>
+            )}
+        </div>
     );
 };
 

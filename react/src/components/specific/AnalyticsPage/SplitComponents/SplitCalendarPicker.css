@@ -10,19 +10,78 @@
     justify-content: center; /* Centers the content inside the column */
 }
 
-.calendar-day {
+.day-tile {
     min-width: 60px;
     min-height: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.7s ease;
 }
 
+.day-content {
+    text-align: center;
+}
 .arrow-day-pointer {
     position: absolute;
     top: -20px;
-    color: #007bff; /* Bootstrap primary color */
+    color: var(--text-50); /* Bootstrap primary color */
     left: 50%;
     transform: translateX(-50%); /* Centers the arrow horizontally */
+}
+
+.disabled-day {
+    pointer-events: none; /* Disable interactions */
+    background-color: rgba(200, 200, 200, 0.5); /* Make the day look visually disabled */
+    cursor: not-allowed; /* Show a disabled cursor */
+    opacity: 0.5; /* Reduce opacity for the disabled effect */
+}
+
+.clear-button {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+
+    width: 16px; /* Set the width to make it small */
+    height: 16px; /* Set the height to the same value as the width for a 1:1 aspect ratio */
+    padding: 0; /* Ensure no extra padding */
+
+    border: none; /* Optional: add a border to the button */
+    border-radius: 50%; /* This makes the button perfectly round */
+
+    display: flex; /* Flexbox to center content */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+
+    background-color: var(--accent-700); /* Bootstrap primary color */; /* Optional background color */
+    transition: all 0.3s ease;
+
+    cursor: pointer; /* Change the cursor to pointer when hovered */
+}
+
+.clear-button:hover {
+    background-color: var(--accent-600);
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.workout-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.dropped-workout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }

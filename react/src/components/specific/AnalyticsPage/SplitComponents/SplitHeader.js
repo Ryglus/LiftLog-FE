@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import {FaArrowDown} from "react-icons/fa";
-import SplitCalendarPicker from "./SplitCalendarPicker";
-import SplitHeaderItem from "./SplitHeaderItem";
 
+import SplitHeaderItem from "./SplitHeaderItem";
 import './SplitHeader.css';
 
 const SplitHeader = ({schedules}) => {
@@ -37,8 +36,7 @@ const SplitHeader = ({schedules}) => {
                         <h1>{activeSchedule.title}</h1>
                     </Col>
                     <Col sm="12" md='7'>
-                        <SplitCalendarPicker splitLength={activeSchedule.split_interval}
-                                             totalDays={activeSchedule.split_interval}/>
+
                     </Col>
                     <Col sm="12" md='auto'>
                         <Button
