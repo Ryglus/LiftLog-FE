@@ -6,7 +6,7 @@ import './CreateSchedule.css'
 
 const CreateSchedule = ({onScheduleCreated}) => {
     const [scheduleTitle, setScheduleTitle] = useState(""); // Schedule title
-    const [startDate, setStartDate] = useState(new Date().toISOString().split("T")[0]); // Default to today
+    const [startDate, setStartDate] = useState(new Date().toISOString().slice(0, 10)); // Set default to today in YYYY-MM-DD format
     const [splitInterval, setSplitInterval] = useState(7); // Default split interval
     const [active, setActive] = useState(true); // Default to active
     const [message, setMessage] = useState("");
@@ -29,7 +29,7 @@ const CreateSchedule = ({onScheduleCreated}) => {
                 "http://localhost:8082/api/tracking/schedule", // Use PUT to create or update a schedule
                 {
                     title: scheduleTitle,
-                    start_date: startDate,
+                    start_date: new Date(startDate),
                     split_interval: splitInterval,
                     active: active,
                 },
@@ -42,7 +42,7 @@ const CreateSchedule = ({onScheduleCreated}) => {
 
             setMessage("Schedule created successfully!");
             setScheduleTitle(""); // Reset the form
-            setStartDate(new Date().toISOString().split("T")[0]); // Reset start date
+            setStartDate(new Date()); // Reset start date
             setSplitInterval(7); // Reset split interval
             setActive(true); // Reset active status
 

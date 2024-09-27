@@ -24,12 +24,12 @@ const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), edita
             const isDisabled = i >= schedule.split_interval;
 
             // Find if there is a workout scheduled for this day
-            const scheduledWorkouts = schedule.schedule_workouts.filter((sw) =>
+            const scheduledWorkouts = schedule?.schedule_workouts?.filter((sw) =>
                 sw.days_of_split.includes(i % schedule.split_interval) // i % schedule.split_interval handles day indexes cycling within the split interval
             );
 
             // Get the corresponding workout details if scheduled
-            const assignedWorkouts = scheduledWorkouts.map((scheduledWorkout) => {
+            const assignedWorkouts = scheduledWorkouts?.map((scheduledWorkout) => {
                 return workouts.find((workout) => workout.id === scheduledWorkout.workout_id);
             });
 

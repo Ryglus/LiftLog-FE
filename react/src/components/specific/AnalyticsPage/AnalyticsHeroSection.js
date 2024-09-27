@@ -13,8 +13,11 @@ const AnalyticsHeroSection = () => {
             -workout tracking
      */
     return (
-        <Row className="ps-md-5 m-1 p-2 hero-profile-banner">
+        <Row className="ps-md-5 m-1 p-2 hero-analytics-banner">
             <TestComponent/>
+            add todays workouts, nicely image it if avaible, ability to change the todays workouts,
+            food intake field
+            suplement intake field
             <Col md={7}>
                 <Row>
                     <Col xs={5}>
