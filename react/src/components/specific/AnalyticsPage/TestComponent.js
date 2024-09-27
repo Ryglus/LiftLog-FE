@@ -3,7 +3,7 @@ import axios from "axios";
 import StorageService from "../../../services/StorageService";
 import CreateWorkout from "./SplitComponents/CreateWorkout";
 import CreateSchedule from "./SplitComponents/CreateSchedule";
-import SplitCalendarPicker from "./SplitComponents/SplitCalendarPicker";
+import SplitHeader from "./SplitComponents/SplitHeader";
 
 const TestComponent = () => {
     const [trackingData, setTrackingData] = useState(null); // Store the fetched schedule
@@ -35,12 +35,8 @@ const TestComponent = () => {
             <div>
                 {trackingData?.schedules.length ? (
                     <div>
-                        <SplitCalendarPicker
-                            schedule={trackingData.schedules[0]}
-                            totalDays={trackingData.schedules[0].split_interval * 2}
-                            editable={false}
-                            workouts={trackingData.workouts}
-                        />
+                        <SplitHeader schedules={trackingData}/>
+
                         <CreateWorkout/>
                     </div>
                 ) : (

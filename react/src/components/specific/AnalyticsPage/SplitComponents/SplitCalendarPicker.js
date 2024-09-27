@@ -155,14 +155,23 @@ const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), edita
                             <FaArrowDown className={"arrow-day-pointer"} size={20}/>
                         )}
                         <div
-                            className={`day-tile ${tile.isDisabled ? 'disabled-day' : ''}`} // Add 'disabled-day' class for styling
+                            className={`day-tile ${tile.isDisabled ? 'disabled-day' : ''} ${isToday(tile.date) ? 'active-day' : ''}`} // Add 'disabled-day' class for styling
                             style={{
                                 cursor: tile.isDisabled ? 'not-allowed' : 'pointer',
+                                background: tile.assignedWorkouts?.length
+                                    ? `linear-gradient(90deg, ${tile.assignedWorkouts
+                                        .map(
+                                            (workout, index) =>
+                                                `${workout.color} ${(index / tile.assignedWorkouts.length) * 100}%, 
+                              ${workout.color} ${((index + 1) / tile.assignedWorkouts.length) * 100}%`
+                                        )
+                                        .join(', ')})`
+                                    : 'rgba(240,240,240,0.11)', // Default background if no workouts assigned
                             }}
                             onDragOver={(e) => !tile.isDisabled && e.preventDefault()} // Allow drag over only for non-disabled days
                             onDrop={(e) => !tile.isDisabled && handleDrop(e, tile)} // Handle drop for non-disabled days
                         >
-                            <div className="day-content">
+                            <div className={"day-content"}>
                                 <div className="day-number">{format(parseISO(tile.date), 'dd')}</div>
                                 <small className="day-name">{format(parseISO(tile.date), 'EEE')}</small>
                                 {!tile.isDisabled && editable && (
@@ -174,22 +183,9 @@ const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), edita
                                     </Button>
                                 )}
                             </div>
-                            <div className="workout-container">
-                                {tile?.assignedWorkouts?.map((workout, workoutIndex) => (
-                                    <div
-                                        key={workout.id}
-                                        className="dropped-workout"
-                                        style={{
-                                            backgroundColor: workout.color,
-                                            height: `${100 / (tile.assignedWorkouts.exercises?.length || tile.assignedWorkouts.length)}%`, // Dynamically size based on number of workouts
-                                        }}
-                                    >
-                                        <span className="workout-color"></span>
-                                    </div>
-                                ))}
-                            </div>
                         </div>
                     </Col>
+
                 ))}
             </Row>
 

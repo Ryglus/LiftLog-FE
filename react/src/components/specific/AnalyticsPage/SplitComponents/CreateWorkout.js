@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Alert, Button, Col, Form, Row, Spinner} from "react-bootstrap";
 import axios from "axios";
 import StorageService from "../../../../services/StorageService"; // Assuming you have this service for token management
+import './CreateWorkout.css'
 
 const CreateWorkout = ({scheduleId, onWorkoutCreated}) => {
     const [workoutName, setWorkoutName] = useState("");
@@ -52,15 +53,16 @@ const CreateWorkout = ({scheduleId, onWorkoutCreated}) => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="create-workout-form">
             {/* Workout Name */}
             <Form.Group controlId="workoutName" className="mb-3">
-                <Form.Label>Workout Name</Form.Label>
+                <Form.Label className="form-label">Workout Name</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Enter workout name"
                     value={workoutName}
                     onChange={(e) => setWorkoutName(e.target.value)}
+                    className="input-field"
                     isInvalid={!workoutName && message} // Show error if workout name is missing
                 />
                 <Form.Control.Feedback type="invalid">
@@ -70,20 +72,21 @@ const CreateWorkout = ({scheduleId, onWorkoutCreated}) => {
 
             {/* Workout Color */}
             <Form.Group controlId="workoutColor" className="mb-3">
-                <Form.Label>Workout Color</Form.Label>
+                <Form.Label className="form-label">Workout Color</Form.Label>
                 <Row>
                     <Col>
                         <Form.Control
                             type="color"
                             value={color}
                             onChange={(e) => setColor(e.target.value)}
+                            className="color-picker"
                         />
                     </Col>
                 </Row>
             </Form.Group>
 
             {/* Submit Button */}
-            <Button variant="primary" type="submit" disabled={loading}>
+            <Button variant="primary" type="submit" disabled={loading} className="submit-btn">
                 {loading ? (
                     <>
                         <Spinner

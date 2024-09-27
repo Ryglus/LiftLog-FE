@@ -1,16 +1,17 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Col, Row} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {FaArrowDown} from "react-icons/fa";
 
 import SplitHeaderItem from "./SplitHeaderItem";
 import './SplitHeader.css';
+import SplitCalendarPicker from "./SplitCalendarPicker";
+import CreateSchedule from "./CreateSchedule";
 
 const SplitHeader = ({schedules}) => {
-    const [activeSchedule, setActiveSchedule] = useState(schedules[0]);
+    const [activeSchedule, setActiveSchedule] = useState(schedules.schedules[0]);
     const [splitDropdown, setSplitDropdown] = useState(false);
-    const dropdownRef = useRef(null); // Reference to the dropdown
+    const dropdownRef = useRef(null);
 
-    // Function to toggle the dropdown
     const toggleDropdown = () => {
         setSplitDropdown(prevState => !prevState);
     };
@@ -19,11 +20,11 @@ const SplitHeader = ({schedules}) => {
         if (dropdownRef.current) {
             const dropdown = dropdownRef.current;
             if (splitDropdown) {
-                dropdown.style.height = `${dropdown.scrollHeight}px`; // Set to content's full height
-                dropdown.style.opacity = "1"; // Make visible
+                dropdown.style.height = `${dropdown.scrollHeight}px`;
+                dropdown.style.opacity = "1";
             } else {
-                dropdown.style.height = "0px"; // Collapse height to 0
-                dropdown.style.opacity = "0"; // Make invisible
+                dropdown.style.height = "0px";
+                dropdown.style.opacity = "0";
             }
         }
     }, [splitDropdown]);
@@ -31,35 +32,45 @@ const SplitHeader = ({schedules}) => {
     return (
         <div>
             <div className="split-header-container">
-                <Row>
-                    <Col sm="12" md='auto'>
-                        <h1>{activeSchedule.title}</h1>
-                    </Col>
-                    <Col sm="12" md='7'>
-
-                    </Col>
-                    <Col sm="12" md='auto'>
+                <div className="background-text">{activeSchedule.title.toUpperCase()}</div>
+                <div className="split-header-content">
+                    <div className="split-calendar">
+                        <SplitCalendarPicker
+                            schedule={activeSchedule}
+                            totalDays={activeSchedule.split_interval}
+                            editable={false}
+                            workouts={schedules.workouts}
+                        />
+                    </div>
+                    <div className="dropdown-col">
                         <Button
                             variant="outline-secondary"
                             onClick={toggleDropdown}
+                            className="dropdown-button"
                         >
                             <FaArrowDown size={25}/>
                         </Button>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
             <div className={`split-dropdown-container`}>
                 <div ref={dropdownRef} className={`split-dropdown`}>
-                    {schedules.slice(1).map((schedule, index) => (
+                    {schedules.schedules.slice(1).map((schedule, index) => (
                         <SplitHeaderItem
                             key={index}
                             schedule={schedule}
                             onClick={() => {
                                 setActiveSchedule(schedule);
-                                setSplitDropdown(false); // Close dropdown after selection
+                                setSplitDropdown(false);
                             }}
                         />
                     ))}
+                    {schedules.schedules.length <= 1 && (
+                        <div>
+                            <p>No other schedule found. You can create one below.</p>
+                            <CreateSchedule/>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

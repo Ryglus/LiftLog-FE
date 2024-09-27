@@ -1,19 +1,66 @@
 .split-header-container {
-    background-color: #131a27;
+    background-color: var(--primary-900);
     border-radius: var(--global-border-radius);
-    padding: 15px;
+    padding: 15px 0 15px 0;
     position: relative;
 }
 
 .split-dropdown-container {
     position: relative;
     width: 100%;
+}
 
+.background-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: left;
+    transform: translate(0, -60%);
+    font-size: 80px; /* Reduced size */
+    color: rgba(255, 255, 255, 0.08); /* Faded text, reduce opacity further */
+    font-weight: 700;
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.split-header-content {
+    position: relative;
+    z-index: 1; /* Ensure the calendar content stays above the background text */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Add some padding for better spacing */
+}
+
+.split-calendar {
+    flex-grow: 1; /* Let the calendar take up all available space */
+    flex-basis: 0; /* Allow it to shrink but not less than the content size */
+}
+
+.dropdown-col {
+    display: flex;
+    justify-content: flex-end; /* Align the dropdown button to the right */
+}
+
+.dropdown-button {
+
+    background-color: var(--primary-800);
+    border: none;
+    color: var(--text-50);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.split-dropdown-container {
+    position: relative;
+    width: 100%;
 }
 
 .split-dropdown {
     border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
-    background-color: #1b304b;
+    background-color: var(--primary-800);
     position: absolute;
     width: 96%;
     left: 2%;
@@ -25,6 +72,5 @@
 }
 
 .split-dropdown.open {
-
     opacity: 1;
 }

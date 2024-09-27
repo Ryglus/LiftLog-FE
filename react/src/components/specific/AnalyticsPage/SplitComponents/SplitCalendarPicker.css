@@ -11,21 +11,34 @@
 }
 
 .day-tile {
-    min-width: 60px;
-    min-height: 60px;
+    aspect-ratio: 1 / 1; /* Ensures the element maintains a 1:1 aspect ratio */
+    width: 80%; /* Set the width relative to the parent container */
+    padding: 5%; /* Add some padding, which won't affect the aspect ratio */
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     transition: background-color 0.7s ease;
+    border-radius: 10%; /* Rounded corners */
+
+    /* Optional: Set a max width and height to prevent it from getting too large */
+    max-width: 120px;
+    max-height: 120px;
 }
 
+.active-day {
+    outline-offset: 2px;
+    outline: 1px solid white; /* Outer border effect */
+}
 .day-content {
     text-align: center;
+    line-height: 20px;
 }
 .arrow-day-pointer {
     position: absolute;
-    top: -20px;
+    top: -23px;
     color: var(--text-50); /* Bootstrap primary color */
     left: 50%;
     transform: translateX(-50%); /* Centers the arrow horizontally */
@@ -48,7 +61,7 @@
     padding: 0; /* Ensure no extra padding */
 
     border: none; /* Optional: add a border to the button */
-    border-radius: 50%; /* This makes the button perfectly round */
+    border-radius: 20%; /* This makes the button perfectly round */
 
     display: flex; /* Flexbox to center content */
     align-items: center; /* Center content vertically */
@@ -71,17 +84,17 @@
     position: relative;
 }
 
-.workout-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+.day-number,
+.day-name {
+    color: white;
+    mix-blend-mode: exclusion;
+    padding: 0;
 }
 
-.dropped-workout {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+.day-number {
+    font-size: 22px; /* Larger size for the number */
+}
+
+.day-name {
+    font-size: 12px; /* Smaller size for the day name */
 }

@@ -2,10 +2,11 @@ import React, {useState} from "react";
 import {Alert, Button, Form, Spinner} from "react-bootstrap";
 import axios from "axios";
 import StorageService from "../../../../services/StorageService"; // Assuming you have this service for token management
+import './CreateSchedule.css'
 
 const CreateSchedule = ({onScheduleCreated}) => {
     const [scheduleTitle, setScheduleTitle] = useState(""); // Schedule title
-    const [startDate, setStartDate] = useState(new Date()); // Default to today
+    const [startDate, setStartDate] = useState(new Date().toISOString().split("T")[0]); // Default to today
     const [splitInterval, setSplitInterval] = useState(7); // Default split interval
     const [active, setActive] = useState(true); // Default to active
     const [message, setMessage] = useState("");
@@ -25,9 +26,10 @@ const CreateSchedule = ({onScheduleCreated}) => {
 
         try {
             const response = await axios.put(
-                "http://localhost:8082/api/tracking/schedule", // Use POST to create a new schedule
+                "http://localhost:8082/api/tracking/schedule", // Use PUT to create or update a schedule
                 {
                     title: scheduleTitle,
+                    start_date: startDate,
                     split_interval: splitInterval,
                     active: active,
                 },
@@ -40,7 +42,7 @@ const CreateSchedule = ({onScheduleCreated}) => {
 
             setMessage("Schedule created successfully!");
             setScheduleTitle(""); // Reset the form
-            setStartDate(new Date()); // Reset start date
+            setStartDate(new Date().toISOString().split("T")[0]); // Reset start date
             setSplitInterval(7); // Reset split interval
             setActive(true); // Reset active status
 
@@ -56,7 +58,7 @@ const CreateSchedule = ({onScheduleCreated}) => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="create-schedule-form">
             {/* Schedule Title */}
             <Form.Group controlId="scheduleTitle" className="mb-3">
                 <Form.Label>Schedule Title</Form.Label>
@@ -104,7 +106,7 @@ const CreateSchedule = ({onScheduleCreated}) => {
             </Form.Group>
 
             {/* Submit Button */}
-            <Button variant="primary" type="submit" disabled={loading}>
+            <Button variant="primary" type="submit" disabled={loading} className="submit-btn">
                 {loading ? (
                     <>
                         <Spinner

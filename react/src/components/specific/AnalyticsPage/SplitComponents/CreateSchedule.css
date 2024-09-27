@@ -1,0 +1,50 @@
+.create-schedule-form {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 400px;
+    margin: 20px auto; /* Center the form horizontally */
+}
+
+.form-label {
+    font-weight: 600;
+    color: #333; /* Darker color for better readability */
+    margin-bottom: 5px;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+input:focus, select:focus {
+    border-color: #007bff; /* Bootstrap primary color */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus effect */
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3; /* Darken on hover */
+}
+
+.submit-btn:disabled {
+    background-color: #6c757d; /* Disabled button color */
+    cursor: not-allowed;
+}
+
+.alert {
+    margin-top: 15px;
+}
