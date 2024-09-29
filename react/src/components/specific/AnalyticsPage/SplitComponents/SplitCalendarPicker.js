@@ -2,48 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, Row} from 'react-bootstrap';
 import './SplitCalendarPicker.css';
 import DragDropWorkout from './DragDropWorkout';
-import {addDays, format, isToday, parseISO, startOfWeek} from 'date-fns';
+import {format, isToday, parseISO, startOfWeek} from 'date-fns';
 import axios from "axios";
 import StorageService from "../../../../services/StorageService";
 import {FaArrowDown, FaTimes} from "react-icons/fa";
+import {useTrackingContext} from "../../../../contexts/TrackingContext";
 
-const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), editable = false, workouts = []}) => {
+const SplitCalendarPicker = ({schedule, totalDays, editable = false, workouts = []}) => {
     const [weekTiles, setWeekTiles] = useState([]); // Array to store tiles for the calendar
-    const updatedAtDate = parseISO(schedule.updated_at); // Parse the updated_at date
+    const {generateScheduleForDateRange} = useTrackingContext();
 
-    // Function to generate the week based on updated_at and split_interval
-    const generateWeekTiles = () => {
-        const startOfCurrentWeek = startOfWeek(updatedAtDate, {weekStartsOn: 1}); // Start from Monday
-        const tiles = [];
-
-        for (let i = 0; i < totalDays; i++) {
-            const currentDay = addDays(startOfCurrentWeek, i);
-            const formattedDate = format(currentDay, 'yyyy-MM-dd');
-
-            // Determine if the day is disabled (beyond the split_interval)
-            const isDisabled = i >= schedule.split_interval;
-
-            // Find if there is a workout scheduled for this day
-            const scheduledWorkouts = schedule?.schedule_workouts?.filter((sw) =>
-                sw.days_of_split.includes(i % schedule.split_interval) // i % schedule.split_interval handles day indexes cycling within the split interval
-            );
-
-            // Get the corresponding workout details if scheduled
-            const assignedWorkouts = scheduledWorkouts?.map((scheduledWorkout) => {
-                return workouts.find((workout) => workout.id === scheduledWorkout.workout_id);
-            });
-
-            // Push the tile with or without a scheduled workout
-            tiles.push({
-                date: formattedDate,
-                dayIndex: i,
-                assignedWorkouts,
-                isDisabled,
-            });
-        }
-
-        setWeekTiles(tiles);
-    };
 
     const assignWorkoutToSchedule = async (wrkoutSchedule) => {
         try {
@@ -67,7 +35,6 @@ const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), edita
 
     const clearWorkoutsFromDay = (tile) => {
         // Keep track of the original schedule_workouts before clearing
-        const originalScheduleWorkouts = JSON.parse(JSON.stringify(schedule.schedule_workouts));
 
         // Remove all workouts from that day (dayIndex) from schedule.schedule_workouts
         schedule.schedule_workouts.forEach(sw => {
@@ -81,13 +48,6 @@ const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), edita
             assignWorkoutToSchedule(e);
         })
 
-        // Update the weekTiles state to reflect the cleared day
-        setWeekTiles(prevTiles =>
-            prevTiles.map(weekTile =>
-                weekTile.dayIndex === tile.dayIndex ? {...weekTile, assignedWorkouts: []} : weekTile
-            )
-        );
-        generateWeekTiles();
     };
 
     // Handle drag start
@@ -126,24 +86,14 @@ const SplitCalendarPicker = ({schedule, totalDays, startDate = new Date(), edita
             assignWorkoutToSchedule(changedWorkout);
         }
 
-        // Update the weekTiles state to reflect the dropped workout
-        const updatedWeekTiles = weekTiles.map((weekTile) => {
-            if (weekTile.dayIndex === tile.dayIndex) {
-                return {
-                    ...weekTile,
-                    assignedWorkouts: [...weekTile.assignedWorkouts, workout], // Append the new workout
-                };
-            }
-            return weekTile;
-        });
-
-        setWeekTiles(updatedWeekTiles); // Update the week tiles to reflect changes
-        generateWeekTiles();
     };
 
     // UseEffect to trigger week generation based on schedule
     useEffect(() => {
-        generateWeekTiles();
+        setWeekTiles(generateScheduleForDateRange(schedule, {
+            startDate: editable ? (startOfWeek(new Date(), {weekStartsOn: 1})) : (new Date()), // This should be a valid date
+            totalDays: schedule.split_interval
+        }));
     }, [schedule, workouts]);
 
     return (

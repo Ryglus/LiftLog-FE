@@ -2,7 +2,8 @@ import React from 'react';
 import {Col, Row} from 'react-bootstrap';
 
 import './AnalyticsHeroSection.css';
-import TestComponent from "./TestComponent";
+import SplitHeader from "./SplitComponents/SplitHeader";
+import WorkoutHeader from "./WorkoutHeader";
 
 
 const AnalyticsHeroSection = () => {
@@ -12,12 +13,15 @@ const AnalyticsHeroSection = () => {
             -intake tracking
             -workout tracking
      */
-    return (
-        <Row className="ps-md-5 m-1 p-2 hero-analytics-banner">
-            <TestComponent/>
-            add todays workouts, nicely image it if avaible, ability to change the todays workouts,
+    /*
+    TODO:     add todays workouts, nicely image it if avaible, ability to change the todays workouts,
             food intake field
             suplement intake field
+     */
+    return (
+        <Row className="ps-md-5 m-1 p-2 hero-analytics-banner">
+            <SplitHeader/>
+            <WorkoutHeader/>
             <Col md={7}>
                 <Row>
                     <Col xs={5}>

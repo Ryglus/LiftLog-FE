@@ -1,14 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button} from "react-bootstrap";
 import {FaArrowDown} from "react-icons/fa";
-
+import {useTrackingContext} from '../../../../contexts/TrackingContext';
 import SplitHeaderItem from "./SplitHeaderItem";
 import './SplitHeader.css';
 import SplitCalendarPicker from "./SplitCalendarPicker";
 import CreateSchedule from "./CreateSchedule";
 
-const SplitHeader = ({schedules}) => {
-    const [activeSchedule, setActiveSchedule] = useState(schedules.schedules[0]);
+const SplitHeader = () => {
+    const {trackingData, activeSchedule, schedules, updateActiveSchedule} = useTrackingContext();
+
     const [splitDropdown, setSplitDropdown] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -29,6 +30,8 @@ const SplitHeader = ({schedules}) => {
         }
     }, [splitDropdown]);
 
+    if (!activeSchedule) return null; // Don't render anything if activeSchedule is not available
+
     return (
         <div>
             <div className="split-header-container">
@@ -39,7 +42,7 @@ const SplitHeader = ({schedules}) => {
                             schedule={activeSchedule}
                             totalDays={activeSchedule.split_interval}
                             editable={false}
-                            workouts={schedules.workouts}
+                            workouts={trackingData.workouts}
                         />
                     </div>
                     <div className="dropdown-col">
@@ -55,17 +58,18 @@ const SplitHeader = ({schedules}) => {
             </div>
             <div className={`split-dropdown-container`}>
                 <div ref={dropdownRef} className={`split-dropdown`}>
-                    {schedules.schedules.slice(1).map((schedule, index) => (
+                    {schedules.map((schedule, index) => (
                         <SplitHeaderItem
                             key={index}
                             schedule={schedule}
+                            workouts={trackingData.workouts}
                             onClick={() => {
-                                setActiveSchedule(schedule);
+                                updateActiveSchedule(schedule);
                                 setSplitDropdown(false);
                             }}
                         />
                     ))}
-                    {schedules.schedules.length <= 1 && (
+                    {trackingData.schedules.length <= 1 && (
                         <div>
                             <p>No other schedule found. You can create one below.</p>
                             <CreateSchedule/>

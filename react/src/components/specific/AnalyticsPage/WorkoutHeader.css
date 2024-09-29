@@ -1,0 +1,37 @@
+.workout-header-container {
+    border-radius: 10px; /* Soft rounded corners */
+    padding: 20px; /* Added padding */
+    margin-bottom: 15px; /* Space between workout cards */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+}
+
+.workout-header-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff; /* Ensures the text is always visible on colored backgrounds */
+    display: inline-block;
+}
+
+.workout-header-info {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8); /* Lighter color for secondary info */
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.workout-header-icon {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 10px;
+}
+
+.workout-header-content {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}

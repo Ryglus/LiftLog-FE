@@ -2,8 +2,9 @@ import React from "react";
 
 import './SplitHeader.css'
 import {Col, Row} from "react-bootstrap";
+import SplitCalendarPicker from "./SplitCalendarPicker";
 
-const SplitHeaderItem = ({schedule}) => {
+const SplitHeaderItem = ({schedule, workouts}) => {
 
     return (
         <Row className={"split-header-container"}>
@@ -11,7 +12,14 @@ const SplitHeaderItem = ({schedule}) => {
                 <h1>{schedule.title}</h1>
             </Col>
             <Col>
-
+                <div>
+                    <SplitCalendarPicker
+                        schedule={schedule}
+                        totalDays={schedule.split_interval}
+                        editable={false}
+                        workouts={workouts}
+                    />
+                </div>
             </Col>
         </Row>
     );
