@@ -41,7 +41,7 @@ const SplitHeader = () => {
                         <SplitCalendarPicker
                             schedule={activeSchedule}
                             totalDays={activeSchedule.split_interval}
-                            editable={false}
+                            editable={true}
                             workouts={trackingData.workouts}
                         />
                     </div>
